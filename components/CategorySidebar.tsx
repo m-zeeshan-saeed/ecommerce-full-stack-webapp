@@ -1,0 +1,32 @@
+
+const categories = [
+    "Automobiles",
+    "Clothes and wear",
+    "Home interiors",
+    "Computer and tech",
+    "Tools, equipments",
+    "Sports and outdoor",
+    "Animal and pets",
+    "Machinery tools",
+    "More category",
+];
+
+export default function Sidebar() {
+    return (
+        <aside className="bg-white rounded-[10px] text-base text-black">
+            <ul>
+                {categories.map((c, i) => (
+                    <li
+                        key={c}
+                        className={`py-2.5 px-3 rounded cursor-pointer ${i === 0
+                            ? "bg-blue-50 text-black font-medium"
+                            : "text-gray-600 hover:text-black hover:font-medium"
+                            }`}
+                    >
+                        {c}
+                    </li>
+                ))}
+            </ul>
+        </aside>
+    );
+}
