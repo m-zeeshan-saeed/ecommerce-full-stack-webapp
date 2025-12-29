@@ -1,4 +1,6 @@
 
+
+
 const categories = [
     "Automobiles",
     "Clothes and wear",
@@ -11,22 +13,26 @@ const categories = [
     "More category",
 ];
 
-export default function Sidebar() {
+export default function CategorySidebar() {
     return (
-        <aside className="bg-white rounded-[10px] text-base text-black w-full">
-            <ul className="flex lg:flex-col flex-row overflow-x-auto lg:px-0 px-2 w-full gap-2">
-                {categories.map((c, i) => (
+        <nav className="w-full">
+            <ul className="flex lg:flex-col flex-row gap-1 lg:gap-0 overflow-x-auto no-scrollbar py-2 lg:py-0">
+                {categories.map((category, index) => (
                     <li
-                        key={c}
-                        className={`py-2.5 px-3 whitespace-nowrap rounded cursor-pointer ${i === 0
-                            ? "bg-blue-50 text-black font-medium"
-                            : "text-gray-600 hover:text-black hover:font-medium"
-                            }`}
+                        key={category}
+                        className={`
+                            py-2.5 px-4 text-sm transition-all duration-200 cursor-pointer whitespace-nowrap
+                            border border-gray-200 lg:border-none rounded-md lg:rounded-lg
+                            ${index === 0
+                                ? "bg-blue-100 lg:bg-[#E5F1FF] text-blue-700 lg:text-black font-semibold"
+                                : "text-gray-600 hover:bg-gray-100 hover:text-black"
+                            }
+                        `}
                     >
-                        {c}
+                        {category}
                     </li>
                 ))}
             </ul>
-        </aside>
+        </nav>
     );
 }
