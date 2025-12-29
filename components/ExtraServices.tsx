@@ -26,7 +26,7 @@ export default function ExtraServices() {
         <div className="w-full mx-auto  space-y-12">
 
             <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Our extra services</h2>
+                <div className="text-2xl font-bold text-gray-900 mb-6">Our extra services</div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {services.map((service, i) => (
                         <div key={i} className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
@@ -39,9 +39,9 @@ export default function ExtraServices() {
                                 </div>
                             </div>
                             <div className="p-5 pt-7">
-                                <p className="text-gray-900 font-medium leading-snug max-w-[150px]">
+                                <div className="text-gray-900 font-medium leading-snug max-w-[150px]">
                                     {service.title}
-                                </p>
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -50,18 +50,18 @@ export default function ExtraServices() {
 
 
             <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Suppliers by region</h2>
+                <div className="text-2xl font-bold text-gray-900 mb-6">Suppliers by region</div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-4 gap-x-8">
                     {regions.map((region, i) => (
                         <div key={i} className="flex items-center gap-3 group cursor-pointer">
-                            <span className="text-2xl">{region.flag}</span>
+                            <div className="text-2xl">{region.flag}</div>
                             <div>
-                                <p className="text-sm text-gray-900 font-medium group-hover:text-blue-600 transition-colors">
+                                <div className="text-sm text-gray-900 font-medium group-hover:text-blue-600 transition-colors">
                                     {region.name}
-                                </p>
-                                <p className="text-[11px] text-gray-400">
+                                </div>
+                                <div className="text-[11px] text-gray-400">
                                     {region.shop}
-                                </p>
+                                </div>
                             </div>
                         </div>
                     ))}

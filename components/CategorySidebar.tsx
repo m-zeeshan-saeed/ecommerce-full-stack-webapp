@@ -15,7 +15,7 @@ const categories = [
 
 export default function CategorySidebar() {
     return (
-        <nav className="w-full">
+        <div className="w-full">
             <ul className="flex lg:flex-col flex-row gap-1 lg:gap-0 overflow-x-auto no-scrollbar py-2 lg:py-0">
                 {categories.map((category, index) => (
                     <li
@@ -33,6 +33,6 @@ export default function CategorySidebar() {
                     </li>
                 ))}
             </ul>
-        </nav>
+        </div>
     );
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Header() {
     return (
-        <header className="bg-white border-b border-gray-200 px-15">
+        <div className="bg-white border-b border-gray-200 px-15">
 
             <div className="w-full mx-auto px-4 md:px-6 py-3 flex flex-col gap-y-4 md:flex-row md:items-center md:gap-x-6">
 
@@ -13,14 +13,14 @@ export default function Header() {
                         <div className="p-1.5">
                             <Image src="/logo-symbol.svg" alt="" width={40} height={40} />
                         </div>
-                        <span className="opacity-50 text-3xl">Brand</span>
+                        <div className="opacity-50 text-3xl">Brand</div>
                     </div>
 
 
                     <div className="flex md:hidden gap-5 text-gray-500">
                         <div className="flex flex-col items-center"></div>
                         <div className="flex flex-col items-center relative">
-                            <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</span>
+                            <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</div>
                         </div>
                     </div>
                 </div>
@@ -59,16 +59,16 @@ export default function Header() {
                             <div className="relative text-xl">
                                 {item.icon}
                                 {item.count && (
-                                    <span className="absolute -top-1 -right-2 bg-blue-600 text-white text-[10px] px-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center">
+                                    <div className="absolute -top-1 -right-2 bg-blue-600 text-white text-[10px] px-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center">
                                         {item.count}
-                                    </span>
+                                    </div>
                                 )}
                             </div>
-                            <span className="text-[11px] mt-1">{item.label}</span>
+                            <div className="text-[11px] mt-1">{item.label}</div>
                         </div>
                     ))}
                 </div>
             </div>
-        </header>
+        </div>
     );
 }

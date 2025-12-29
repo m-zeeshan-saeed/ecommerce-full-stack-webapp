@@ -51,8 +51,8 @@ const DealsOffers = () => {
 
         <div className="p-5 flex flex-col   min-h-[160px]">
           <div>
-            <h3 className=" font-extrabold text-lg text-gray-900 leading-tight">Deals and offers</h3>
-            <p className="text-gray-500 text-lg mt-1">Hygiene equipments</p>
+            <div className=" font-extrabold text-lg text-gray-900 leading-tight">Deals and offers</div>
+            <div className="text-gray-500 text-lg mt-1">Hygiene equipments</div>
           </div>
 
 
@@ -93,9 +93,9 @@ const DealsOffers = () => {
               />
             </div>
 
-            <p className="text-gray-800 font-medium text-sm text-center mb-2">
+            <div className="text-gray-800 font-medium text-sm text-center mb-2">
               {item.title}
-            </p>
+            </div>
 
             <div className="inline-block bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full">
               {item.discount}

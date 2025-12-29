@@ -3,11 +3,11 @@ import Image from "next/image";
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-t border-gray-200">
-            {/* Top Footer */}
+        <div className="bg-white border-t border-gray-200">
+
             <div className="w-full mx-auto py-12 px-40 flex flex-col md:flex-row md:flex-wrap gap-8">
 
-                {/* Brand */}
+
                 <div className="flex-1 min-w-[220px] md:max-w-[320px]">
                     <div className="flex items-center gap-2 mb-3">
                         <div className="p-1">
@@ -18,16 +18,16 @@ export default function Footer() {
                                 height={40}
                             />
                         </div>
-                        <span className="text-[#0d6efd] font-bold text-[30px] tracking-tight cursor-pointer opacity-50">
+                        <div className="text-[#0d6efd] font-bold text-[30px] tracking-tight cursor-pointer opacity-50">
                             Brand
-                        </span>
+                        </div>
                     </div>
 
-                    <p className="text-sm text-gray-500 mb-6">
+                    <div className="text-sm text-gray-500 mb-6">
                         Connecting global buyers and sellers through a trusted platform that enables businesses of all sizes to trade, grow, and succeed worldwide.
-                    </p>
+                    </div>
 
-                    {/* Social Icons */}
+
                     <div className="flex gap-3">
                         <ul className="flex justify-center mt-5 space-x-5">
                             <li>
@@ -79,7 +79,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Footer Columns */}
+
                 <div className="flex  flex-wrap gap-20 text-black">
                     <FooterColumn
                         title="About"
@@ -106,7 +106,7 @@ export default function Footer() {
 
 
                 <div className="min-w-[180px]">
-                    <h4 className="font-medium mb-3 text-black">Get app</h4>
+                    <div className="font-medium mb-3 text-black">Get app</div>
                     <div className="space-y-2 flex flex-col">
                         <button className="inline-flex items-center rounded-lg border border-gray-200 bg-gray-50  px-3 py-1.5 sm:px-4 sm:py-3 hover:bg-gray-700 focus:outline-none dark:bg-gray-800 dark:border-gray-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-7 w-5 sm:h-7 sm:w-9"
@@ -115,10 +115,10 @@ export default function Footer() {
                                     d="M99.617 8.057a50.191 50.191 0 00-38.815-6.713l230.932 230.933 74.846-74.846L99.617 8.057zM32.139 20.116c-6.441 8.563-10.148 19.077-10.148 30.199v411.358c0 11.123 3.708 21.636 10.148 30.199l235.877-235.877L32.139 20.116zM464.261 212.087l-67.266-37.637-81.544 81.544 81.548 81.548 67.273-37.64c16.117-9.03 25.738-25.442 25.738-43.908s-9.621-34.877-25.749-43.907zM291.733 279.711L60.815 510.629c3.786.891 7.639 1.371 11.492 1.371a50.275 50.275 0 0027.31-8.07l266.965-149.372-74.849-74.847z">
                                 </path>
                             </svg>
-                            <span className="ml-2 flex flex-col items-start leading-none">
-                                <span className="mb-0 sm:text-xs text-[10px]  ">GET IT ON</span>
-                                <span className="title-font sm:text-sm text-xs font-medium ">Google Play</span>
-                            </span>
+                            <div className="ml-2 flex flex-col items-start leading-none">
+                                <div className="mb-0 sm:text-xs text-[10px]  ">GET IT ON</div>
+                                <div className="title-font sm:text-sm text-xs font-medium ">Google Play</div>
+                            </div>
                         </button>
                         <button className="inline-flex items-center rounded-lg border border-gray-200 dark:text-white bg-gray-50 px-3 py-1.5 sm:px-4 sm:py-3 hover:bg-gray-700 focus:outline-none dark:bg-gray-800 dark:border-gray-600">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-7 w-5 sm:h-7 sm:w-9"
@@ -130,10 +130,10 @@ export default function Footer() {
                                     d="M212.1 0c-15.76.64-34.67 10.35-45.97 23.58-9.6 11.13-19 29.68-16.52 48.38a2.5 2.5 0 002.29 2.17c1.06.08 2.15.12 3.23.12 15.41 0 32.04-8.52 43.4-22.25 11.94-14.5 17.99-33.1 16.16-49.77A2.52 2.52 0 00212.1 0z">
                                 </path>
                             </svg>
-                            <span className="ml-2 flex flex-col items-start leading-none">
-                                <span className="mb-0 sm:text-xs text-[10px] text-gray-600 dark:text-gray-300">Download on the</span>
-                                <span className="title-font sm:text-sm text-xs font-medium dark:text-gray-200">App Store</span>
-                            </span>
+                            <div className="ml-2 flex flex-col items-start leading-none">
+                                <div className="mb-0 sm:text-xs text-[10px] text-gray-600 dark:text-gray-300">Download on the</div>
+                                <div className="title-font sm:text-sm text-xs font-medium dark:text-gray-200">App Store</div>
+                            </div>
                         </button>
                     </div>
                 </div>
@@ -148,7 +148,7 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-        </footer>
+        </div>
     );
 }
 
@@ -161,7 +161,7 @@ function FooterColumn({
 }) {
     return (
         <div className="min-w-[140px]">
-            <h4 className="font-medium mb-3">{title}</h4>
+            <div className="font-medium mb-3">{title}</div>
             <ul className="space-y-2 text-sm text-gray-500">
                 {links.map((link) => (
                     <li key={link}>

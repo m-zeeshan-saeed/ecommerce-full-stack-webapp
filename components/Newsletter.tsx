@@ -6,19 +6,18 @@ export default function Newsletter() {
     const [email, setEmail] = useState("");
 
     return (
-        <section className="w-full bg-gray-200 py-10 px-4">
+        <div className="w-full bg-gray-200 py-10 px-4">
             <div className="max-w-2xl mx-auto text-center">
-                {/* Title */}
-                <h2 className="text-xl sm:text-2xl font-semibold mb-2 text-black">
+
+                <div className="text-xl sm:text-2xl font-semibold mb-2 text-black">
                     Subscribe on our newsletter
-                </h2>
+                </div>
 
-                {/* Subtitle */}
-                <p className="text-sm sm:text-base text-gray-600 mb-6">
+                <div className="text-sm sm:text-base text-gray-600 mb-6">
                     Get daily news on upcoming offers from many suppliers all over the world
-                </p>
+                </div>
 
-                {/* Form */}
+
                 <form
                     onSubmit={(e) => e.preventDefault()}
                     className="flex flex-col sm:flex-row items-center justify-center gap-3"
@@ -34,9 +33,9 @@ export default function Newsletter() {
               focus:border-blue-500 focus:ring-2 focus:ring-blue-100
               outline-none transition"
                         />
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                             ✉️
-                        </span>
+                        </div>
                     </div>
 
                     <button
@@ -48,6 +47,6 @@ export default function Newsletter() {
                     </button>
                 </form>
             </div>
-        </section>
+        </div>
     );
 }

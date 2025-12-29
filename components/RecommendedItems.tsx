@@ -25,9 +25,9 @@ const products: Product[] = [
 export default function RecommendedItems() {
     return (
         <div className="w-full py-4">
-            <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-5 px-1">
+            <div className="text-xl md:text-2xl font-bold text-gray-900 mb-5 px-1">
                 Recommended items
-            </h2>
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-5">
                 {products.map((product) => (
                     <div

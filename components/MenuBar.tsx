@@ -8,29 +8,29 @@ export default function MenuBar() {
 
                 <div className="flex items-center overflow-x-auto no-scrollbar whitespace-nowrap gap-4 md:gap-6 mr-4">
                     <button className="flex items-center gap-1.5 font-semibold shrink-0 hover:text-blue-600 transition-colors">
-                        <span>☰</span>
-                        <span>All category</span>
+                        <div>☰</div>
+                        <div>All category</div>
                     </button>
 
                     <nav className="flex items-center gap-4 md:gap-6">
-                        <span className="cursor-pointer hover:text-blue-600 transition-colors">Hot offers</span>
-                        <span className="cursor-pointer hover:text-blue-600 transition-colors">Gift boxes</span>
-                        <span className="cursor-pointer hover:text-blue-600 transition-colors">Projects</span>
-                        <span className="cursor-pointer hover:text-blue-600 transition-colors">Menu item</span>
-                        <span className="cursor-pointer hover:text-blue-600 transition-colors">Help</span>
+                        <div className="cursor-pointer hover:text-blue-600 transition-colors">Hot offers</div>
+                        <div className="cursor-pointer hover:text-blue-600 transition-colors">Gift boxes</div>
+                        <div className="cursor-pointer hover:text-blue-600 transition-colors">Projects</div>
+                        <div className="cursor-pointer hover:text-blue-600 transition-colors">Menu item</div>
+                        <div className="cursor-pointer hover:text-blue-600 transition-colors">Help</div>
                     </nav>
                 </div>
 
                 <div className="hidden sm:flex items-center gap-4 shrink-0 font-medium">
                     <div className="flex items-center gap-1 cursor-pointer hover:text-blue-600 transition-colors">
-                        <span>English, USD</span>
+                        <div>English, USD</div>
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </div>
                     <div className="flex items-center gap-1 cursor-pointer hover:text-blue-600 transition-colors">
-                        <span>Ship to</span>
-                        <span className="text-base">🇩🇪</span>
+                        <div>Ship to</div>
+                        <div className="text-base">🇩🇪</div>
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
