@@ -22,7 +22,7 @@ export default function ProductListCard({ data }: { data: ProductProps }) {
                     src={data.image}
                     alt={data.title}
                     fill
-                    className="object-contain p-2 mix-blend-multiply"
+                    className="object-cover object-center  mix-blend-multiply"
                 />
             </div>
 
@@ -40,7 +40,7 @@ export default function ProductListCard({ data }: { data: ProductProps }) {
                     </div>
 
                     <div className="flex items-center gap-2 mb-1">
-                        <div className="text-xl font-bold text-gray-900">${data.price.toFixed(2)}</div>
+                        <div className="text-xl font-bold text-gray-900">${(data.price || 0).toFixed(2)}</div>
                         {data.originalPrice && (
                             <div className="text-sm text-gray-400 line-through">${data.originalPrice.toFixed(2)}</div>
                         )}
