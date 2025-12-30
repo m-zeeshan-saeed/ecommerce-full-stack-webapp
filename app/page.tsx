@@ -7,7 +7,7 @@ import ElectronicCategory from "@/components/ElectronicCategory";
 import InquirySection from "@/components/InquirySection";
 import RecommendedItems from "@/components/RecommendedItems";
 import ExtraServices from "@/components/ExtraServices";
-import Newsletter from "@/components/Newsletter";
+
 
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
 
 
       </div>
-      <Newsletter />
+
 
     </>
   );
