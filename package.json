@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "clean": "kill all node || true && rm -rf .next",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
