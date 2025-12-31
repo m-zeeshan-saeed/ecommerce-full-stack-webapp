@@ -5,10 +5,10 @@ export default function Footer() {
     return (
         <div className="bg-white border-t border-gray-200">
 
-            <div className="w-full mx-auto py-12 px-40 flex flex-col md:flex-row md:flex-wrap gap-8">
+            <div className="w-full mx-auto py-12  justify-around flex flex-col md:flex-row md:flex-wrap gap-4">
 
 
-                <div className="flex-1 min-w-[220px] md:max-w-[320px]">
+                <div className="flex-1 min-w-[220px] md:max-w-[320px] mr-10">
                     <div className="flex items-center gap-2 mb-3">
                         <div className="p-1">
                             <Image
@@ -141,7 +141,7 @@ export default function Footer() {
 
 
             <div className="bg-gray-50 border-t border-gray-200">
-                <div className="w-full mx-auto px-40 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
+                <div className="w-full mx-auto px-20 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
                     <p>© 2023 Ecommerce.</p>
                     <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600 transition">
                         🇺🇸 English <span>▾</span>
