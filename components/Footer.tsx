@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Footer() {
     return (
-        <div className="bg-white border-t border-gray-200">
+        <div className="bg-white border-t border-gray-200 px-5">
 
             <div className="w-full mx-auto py-12  justify-around flex flex-col md:flex-row md:flex-wrap gap-4">
 
@@ -141,7 +141,7 @@ export default function Footer() {
 
 
             <div className="bg-gray-50 border-t border-gray-200">
-                <div className="w-full mx-auto px-20 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
+                <div className="w-full mx-auto px-15 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
                     <p>© 2023 Ecommerce.</p>
                     <div className="flex items-center gap-2 cursor-pointer hover:text-blue-600 transition">
                         🇺🇸 English <span>▾</span>

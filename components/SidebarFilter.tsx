@@ -8,10 +8,10 @@ const FilterSection = ({ title, defaultOpen = false, children }: { title: string
         <div className="border-t border-gray-200  first:border-none first:pt-0">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-between w-full font-semibold text-gray-900 mb-3"
+                className="flex items-center justify-between w-full font-semibold  text-gray-900 mb-3"
             >
                 {title}
-                <span className={`text-gray-400 transform transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+                <span className={`text-gray-400  transform transition-transform ${isOpen ? 'rotate-180' : ''}`}>
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
                 </span>
             </button>
@@ -50,8 +50,8 @@ export default function SidebarFilter({ selectedRatings, onRatingChange }: Sideb
 
             <FilterSection title="Brands" defaultOpen={true}>
                 {['Samsung', 'Apple', 'Huawei', 'Pocco', 'Lenovo'].map((brand) => (
-                    <div key={brand} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer hover:text-gray-900">
-                        <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                    <div key={brand} className=" flex items-center gap-2 text-sm text-gray-600 cursor-pointer hover:text-blue-600">
+                        <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 " />
                         {brand}
                     </div>
                 ))}
@@ -62,7 +62,7 @@ export default function SidebarFilter({ selectedRatings, onRatingChange }: Sideb
             {/* Features - Expanded & Checked (New from screenshot) */}
             <FilterSection title="Features" defaultOpen={true}>
                 {['Metallic', 'Plastic cover', '8GB Ram', 'Super power', 'Large Memory'].map((feat, i) => (
-                    <label key={feat} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer hover:text-gray-900">
+                    <label key={feat} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer hover:text-blue-600">
                         <input type="checkbox" defaultChecked={i === 0} className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                         {feat}
                     </label>
@@ -82,27 +82,27 @@ export default function SidebarFilter({ selectedRatings, onRatingChange }: Sideb
 
                     <div className="flex items-center gap-3">
                         <div className="flex-1">
-                            <div className="text-xs text-gray-500">Min</div>
+                            <div className="text-xs text-gray-900">Min</div>
                             <input
                                 type="number"
                                 value={minPrice}
                                 onChange={(e) => setMinPrice(Number(e.target.value))}
-                                className="w-full border border-gray-300 rounded px-2 py-1 text-sm outline-none focus:border-blue-500"
+                                className="w-full border text-black border-gray-300 rounded px-2 py-1 text-sm outline-none focus:border-blue-500"
                                 placeholder="0"
                             />
                         </div>
                         <div className="flex-1">
-                            <div className="text-xs text-gray-500">Max</div>
+                            <div className="text-xs text-gray-900">Max</div>
                             <input
                                 type="number"
                                 value={maxPrice}
                                 onChange={(e) => setMaxPrice(Number(e.target.value))}
-                                className="w-full border border-gray-300 rounded px-2 py-1 text-sm outline-none focus:border-blue-500"
+                                className="w-full border text-black border-gray-300 rounded px-2 py-1 text-sm outline-none focus:border-blue-500"
                                 placeholder="999999"
                             />
                         </div>
                     </div>
-                    <button className="w-full mt-3 bg-white border border-gray-300 text-blue-600 text-sm font-medium py-1.5 rounded hover:bg-gray-50 transition-colors shadow-sm">
+                    <button className="w-full mt-3 bg-white border border-gray-300 text-blue-600 text-sm font-medium py-1.5 rounded hover:bg-blue-600 hover:text-white transition-colors shadow-sm">
                         Apply
                     </button>
                 </div>
@@ -113,7 +113,7 @@ export default function SidebarFilter({ selectedRatings, onRatingChange }: Sideb
 
                 <div className="space-y-2">
                     {['Any', 'Refurbished', 'Brand new', 'Old items'].map((cond, i) => (
-                        <div key={cond} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                        <div key={cond} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer hover:text-blue-600">
                             <input type="radio" name="condition" defaultChecked={i === 0} className="text-blue-600 focus:ring-blue-500" />
                             {cond}
                         </div>

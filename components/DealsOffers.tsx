@@ -65,10 +65,10 @@ const DealsOffers = () => {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-gray-700 text-white text-center w-11 h-12 rounded flex flex-col justify-center"
+                className="bg-gray-700  text-white text-center w-11 h-12 rounded flex flex-col justify-center"
               >
-                <div className="font-bold text-sm leading-none mb-1px">{item.val}</div>
-                <div className="text-[10px] text-gray-200">{item.label}</div>
+                <div className="font-bold  text-sm leading-none mb-1px">{item.val}</div>
+                <div className="text-[10px]  text-gray-200">{item.label}</div>
               </div>
             ))}
           </div>
@@ -77,7 +77,7 @@ const DealsOffers = () => {
         {deals.map((item, index) => (
           <div
             key={index}
-            className="group relative p-4 flex flex-col lg:flex-col items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer"
+            className="group relative  p-4 flex flex-col lg:flex-col items-center justify-between hover:bg-gray-50  transition-colors cursor-pointer"
           >
 
             <div className="relative w-28 h-28 mb-3 flex items-center justify-center">
@@ -93,7 +93,7 @@ const DealsOffers = () => {
               />
             </div>
 
-            <div className="text-gray-800 font-medium text-sm text-center mb-2">
+            <div className="text-gray-800 group-hover:text-blue-600  font-medium text-sm text-center mb-2">
               {item.title}
             </div>
 

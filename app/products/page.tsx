@@ -227,20 +227,20 @@ export default function ProductListingPage() {
                                     </select>
                                 </div>
 
-                                <div className="flex border text-gray-900 border-gray-300 rounded bg-white">
-                                    <button className="w-9 h-9 flex items-center justify-center border-r border-gray-300 hover:bg-gray-50 text-gray-500">
+                                <div className="flex border text-gray-900   border-gray-300 rounded bg-white">
+                                    <button className="w-9 h-9 flex items-center justify-center border-r border-gray-300 hover:bg-gray-50 text-gray-500 hover:text-blue-600">
                                         &lt;
                                     </button>
-                                    <button className="w-9 h-9 flex items-center justify-center border-r border-gray-300 bg-gray-100 font-medium text-gray-900">
+                                    <button className="w-9 h-9 flex items-center justify-center border-r border-gray-300 bg-gray-100 font-medium text-gray-900 hover:text-blue-600">
                                         1
                                     </button>
-                                    <button className="w-9 h-9 flex items-center justify-center border-r border-gray-300 hover:bg-gray-50 text-gray-600">
+                                    <button className="w-9 h-9 flex items-center justify-center border-r border-gray-300 hover:bg-gray-50 text-gray-600 hover:text-blue-600">
                                         2
                                     </button>
-                                    <button className="w-9 h-9 flex items-center justify-center border-r border-gray-300 hover:bg-gray-50 text-gray-600">
+                                    <button className="w-9 h-9 flex items-center justify-center border-r border-gray-300 hover:bg-gray-50 text-gray-600 hover:text-blue-600">
                                         3
                                     </button>
-                                    <button className="w-9 h-9 flex items-center justify-center hover:bg-gray-50 text-gray-500">
+                                    <button className="w-9 h-9 flex items-center justify-center hover:bg-gray-50 text-gray-500 hover:text-blue-600">
                                         &gt;
                                     </button>
                                 </div>
