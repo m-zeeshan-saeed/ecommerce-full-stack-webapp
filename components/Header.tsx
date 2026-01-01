@@ -1,5 +1,6 @@
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
     return (
@@ -9,14 +10,14 @@ export default function Header() {
 
 
                 <div className="flex items-center justify-between w-full md:w-auto">
-                    <div className="flex items-center text-[#0d6efd] font-bold text-2xl tracking-tight cursor-pointer">
-                        <div className="p-1.5">
-                            <Image src="/logo-symbol.svg" alt="" width={40} height={40} />
+                    <Link href="/">
+                        <div className="flex items-center text-[#0d6efd] font-bold text-2xl tracking-tight cursor-pointer">
+                            <span className="p-1.5">
+                                <Image src="/logo-symbol.svg" alt="" width={40} height={40} />
+                            </span>
+                            <span className="opacity-50 text-3xl">Brand</span>
                         </div>
-                        <div className="opacity-50 text-3xl">Brand</div>
-                    </div>
-
-
+                    </Link>
                     <div className="flex md:hidden gap-5 text-gray-500">
                         <div className="flex flex-col items-center"></div>
                         <div className="flex flex-col items-center relative">

@@ -1,35 +1,24 @@
+import { categories } from "../constants/data";
+import Link from "next/link";
 
 
 
-const categories = [
-    "Automobiles",
-    "Clothes and wear",
-    "Home interiors",
-    "Computer and tech",
-    "Tools, equipments",
-    "Sports and outdoor",
-    "Animal and pets",
-    "Machinery tools",
-    "More category",
-];
 
 export default function CategorySidebar() {
     return (
         <div className="w-full">
             <ul className="flex lg:flex-col flex-row gap-1 lg:gap-0 overflow-x-auto no-scrollbar py-2 lg:py-0">
-                {categories.map((category, index) => (
+                {categories.map((items, index) => (
                     <li
-                        key={category}
+                        key={items.category}
                         className={`
                             py-2.5 px-4 text-sm transition-all duration-200 cursor-pointer whitespace-nowrap
                             border border-gray-200 lg:border-none rounded-md lg:rounded-lg
-                            ${index === 0
-                                ? "bg-blue-100 lg:bg-[#E5F1FF] text-blue-700 lg:text-black font-semibold"
-                                : "text-gray-600 hover:bg-gray-100 hover:text-black"
-                            }
+                            hover:bg-blue-100 lg:hover:bg-[#E5F1FF] text-black font-base hover:font-semibold
+                            focus:bg-   blue-100 lg:focus:bg-[#E5F1FF] focus:font-semibold
                         `}
                     >
-                        {category}
+                        <Link href={items.href}>{items.category}</Link>
                     </li>
                 ))}
             </ul>
