@@ -1,8 +1,12 @@
+"use client";
 import { headerData } from "../constants/data";
 import Link from "next/link";
+import {CountrySelect } from "react-country-state-city";
+import { useState } from "react";
 
 
 export default function MenuBar() {
+    const [country, setCountry] = useState('0');
     return (
         <div className="border-b border-gray-200 max-w-full mx-auto px-20 flex flex-wrap gap-6 bg-white space-y-6">
             <div className="w-full mx-auto sm:px-6 lg:px-2 py-3 flex items-center justify-between text-sm text-gray-900">
@@ -28,13 +32,17 @@ export default function MenuBar() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </div>
-                    <div className="flex items-center gap-1 cursor-pointer hover:text-blue-600 transition-colors">
-                        <div>Ship to</div>
-                        <div className="text-base">🇩🇪</div>
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </div>
+                    <div className="hidden lg:block  px-3 bg-white">
+                            <div className="flex items-center  gap-1 cursor-pointer hover:text-blue-600 transition-colors">
+                                <div className="text-sm flex items-center gap-1"> Ship to </div>
+                                <div className="country-select-container">
+                                    <CountrySelect className="w-full" onChange={(e: any) =>{ setCountry(e.id)
+                                    console.log(e)}}
+                                    placeHolder="Select Country"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

@@ -12,6 +12,7 @@
   "dependencies": {
     "next": "16.1.1",
     "react": "19.2.3",
+    "react-country-state-city": "^1.1.12",
     "react-dom": "19.2.3"
   },
   "devDependencies": {

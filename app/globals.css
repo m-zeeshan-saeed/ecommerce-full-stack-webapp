@@ -26,3 +26,11 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.country-select-container .stdropdown-input,
+.country-select-container .stsearch-box {
+    display: flex;
+    margin-inline: 8px;
+    border: 1px solid #1a1919;
+    width: fit-content;
+}
