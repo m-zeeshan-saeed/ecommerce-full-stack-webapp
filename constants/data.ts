@@ -64,3 +64,11 @@ export const categories=[{
     href:"/more-category",
 }
 ]
+
+export const countries=[{ id: 'GE', name: 'Germany', code: 'GE', flag: 'https://flagcdn.com/de.svg' },
+    { id: 'US', name: 'United States', code: 'US', flag: 'https://flagcdn.com/us.svg' },
+    { id: 'FR', name: 'France', code: 'FR', flag: 'https://flagcdn.com/fr.svg' },
+    { id: 'IT', name: 'Italy', code: 'IT', flag: 'https://flagcdn.com/it.svg' },
+    { id: 'AU', name: 'Australia', code: 'AU', flag: 'https://flagcdn.com/au.svg' },
+    { id: 'GB', name: 'Great Britain', code: 'GB', flag: 'https://flagcdn.com/gb.svg' },
+    { id: 'CN', name: 'China', code: 'CN', flag: 'https://flagcdn.com/cn.svg' },]
