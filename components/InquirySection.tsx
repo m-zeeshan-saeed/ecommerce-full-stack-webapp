@@ -1,8 +1,49 @@
-
+"use client"
+import { useState } from 'react'
 
 const InquirySection = () => {
+    const [formData, setFormData] = useState({
+        productName: '',
+        quantity: '' as number | string,
+        unit: 'Pcs',
+        details: '',
+    });
+    const [loading, setLoading] = useState(false);
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const submissionData = {
+                ...formData,
+                quantity: Number(formData.quantity)
+            };
+            const response = await fetch('/api/inquiry', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(submissionData),
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert("Quote sent successfully!");
+                setFormData({
+                    productName: '',
+                    quantity: '',
+                    unit: 'Pcs',
+                    details: '',
+                });
+            } else {
+                alert("Error: " + data.message);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
     return (
-        <div className="w-full mx-auto ">
+        <div onSubmit={handleSubmit} className="w-full mx-auto ">
 
             <div className="relative rounded-lg overflow-hidden min-h-[420px] flex items-center shadow-lg">
 
@@ -37,12 +78,16 @@ const InquirySection = () => {
 
                             <input
                                 type="text"
+                                value={formData.productName}
+                                onChange={(e) => setFormData({ ...formData, productName: e.target.value })}
                                 placeholder="What item you need?"
                                 className="w-full border text-gray-600 border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400"
                             />
 
 
                             <textarea
+                                value={formData.details}
+                                onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                                 placeholder="Type more details"
                                 rows={3}
                                 className="w-full border text-gray-600 border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 resize-none"
@@ -53,10 +98,16 @@ const InquirySection = () => {
                                 <input
                                     type="number"
                                     placeholder="Quantity"
+                                    value={formData.quantity}
+                                    onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                                     className="flex-1 border text-gray-600 border-gray-300 rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                 />
                                 <div className="relative min-w-[120px]">
-                                    <select className="w-full h-full border text-gray-600 border-gray-300 rounded-lg px-4 py-3 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer">
+                                    <select
+                                        value={formData.unit}
+                                        onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
+                                        className="w-full h-full border text-gray-600 border-gray-300 rounded-lg px-4 py-3 text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer"
+                                    >
                                         <option>Pcs</option>
                                         <option>Kg</option>
                                         <option>Liters</option>
@@ -73,9 +124,10 @@ const InquirySection = () => {
 
                             <button
                                 type="submit"
+                                disabled={loading}
                                 className="bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-semibold py-3 px-6 rounded-lg transition-all shadow-md hover:shadow-lg w-fit mt-2"
                             >
-                                Send inquiry
+                                {loading ? "sending..." : "Send inquiry"}
                             </button>
                         </form>
                     </div>

@@ -1,7 +1,7 @@
 export const headerData = [
     {
         title: "All category",
-        href: "/all-category",
+        href: "/products",
 
 
     },
