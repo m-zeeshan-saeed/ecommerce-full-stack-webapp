@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react'
+import SuccessAlert from "./successalert/SuccessAlert";
 
 const InquirySection = () => {
     const [formData, setFormData] = useState({

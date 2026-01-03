@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/db";
 import Inquiry from "@/models/Inquiry";
 
+
 export async function POST(req:Request){
     try {
         await connectToDatabase();
@@ -29,7 +30,7 @@ const validUnits = ['Pcs', 'Kg', 'Liters'];
     });
 
         return NextResponse.json(
-      { success: true, data: newInquiry, message: "Inquiry sent successfully!" },
+      { success: true, data: newInquiry, message: "Inquiry sent successfully" },
       { status: 201 }
     );
     } catch (error: any) {
