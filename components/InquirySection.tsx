@@ -10,6 +10,7 @@ const InquirySection = () => {
         details: '',
     });
     const [loading, setLoading] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -27,7 +28,10 @@ const InquirySection = () => {
             });
             const data = await response.json();
             if (data.success) {
-                alert("Quote sent successfully!");
+                setShowSuccess(true);
+                setTimeout(() => {
+                    setShowSuccess(false);
+                }, 3000);
                 setFormData({
                     productName: '',
                     quantity: '',
@@ -44,7 +48,12 @@ const InquirySection = () => {
         }
     };
     return (
-        <div onSubmit={handleSubmit} className="w-full mx-auto ">
+        <div className="w-full mx-auto relative">
+            {showSuccess && (
+                <div className="fixed bottom-4 right-4 z-50 w-full max-w-lg animate-bounce-in">
+                    <SuccessAlert />
+                </div>
+            )}
 
             <div className="relative rounded-lg overflow-hidden min-h-[420px] flex items-center shadow-lg">
 
@@ -75,7 +84,7 @@ const InquirySection = () => {
                             Send quote to suppliers
                         </div>
 
-                        <form className="space-y-4 text-gray-600">
+                        <form onSubmit={handleSubmit} className="space-y-4 text-gray-600">
 
                             <input
                                 type="text"
