@@ -3,9 +3,9 @@ import Image from "next/image";
 
 export default function Footer() {
     return (
-        <div className="bg-white border-t border-gray-200 px-5">
+        <div className="bg-white border-t border-gray-200 px-5 w-full mx-auto space-y-12">
 
-            <div className="w-full mx-auto py-12  justify-around flex flex-col md:flex-row md:flex-wrap gap-4">
+            <div className="w-full mx-auto px-12 md:px-6 py-5 flex  justify-between flex-col gap-y-4 md:flex-row md:items-center md:gap-x-6">
 
 
                 <div className="flex-1 min-w-[220px] md:max-w-[320px] mr-10">
@@ -80,7 +80,7 @@ export default function Footer() {
                 </div>
 
 
-                <div className="flex  flex-wrap gap-20 text-black">
+                <div className="flex  flex-wrap gap-10 text-black">
                     <FooterColumn
                         title="About"
                         links={["About Us", "Find store", "Categories", "Blogs"]}
