@@ -1,4 +1,4 @@
-// app/products/page.tsx
+
 "use client";
 import SidebarFilter from "@/components/SidebarFilter";
 import ProductListCard from "@/components/ProductListCard";
@@ -6,6 +6,9 @@ import Newsletter from "@/components/Newsletter";
 import ActiveFilters from "@/components/ActiveFilters";
 import ProductGridCard from "@/components/ProductGridCard";
 import { useState } from "react";
+import Header from "@/components/Header";
+import MenuBar from "@/components/MenuBar";
+import Footer from "@/components/Footer";
 
 
 const products = [
@@ -122,12 +125,15 @@ export default function ProductListingPage() {
 
     return (
         <>
+        <Header />
+                <MenuBar />
             <div className="bg-[#f7f8fa] min-h-screen w-full px-16">
+
 
 
                 <main className="w-full  mx-auto px-4 md:px-6 py-6">
 
-                    {/* Breadcrumbs */}
+
                     <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
                         <span>Home</span>
                         <span className="text-gray-400">›</span>
@@ -249,8 +255,10 @@ export default function ProductListingPage() {
                         </div>
                     </div>
                 </main>
+
             </div>
             <Newsletter />
+            <Footer />
         </>
     );
 }

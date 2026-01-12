@@ -3,6 +3,9 @@
 import CartItem from '@/components/cart/CartItem';
 import OrderSummary from '@/components/cart/OrderSummary';
 import SavedItemCard from '@/components/cart/SavedItemCard';
+import Footer from '@/components/Footer';
+import Link from 'next/link';
+import Image from 'next/image';
 
 
 const cartItems = [
@@ -20,6 +23,57 @@ const savedItems = [
 
 export default function CartPage() {
     return (
+        <>
+        <div className="bg-white border-b border-gray-200 px-15">
+
+            <div className="w-full mx-auto px-4 md:px-6 py-3 flex justify-between   flex-col gap-y-4 md:flex-row md:items-center md:gap-x-6">
+
+
+                <div className="flex items-center justify-start w-full md:w-auto">
+                    <Link href="/">
+                        <div className="flex items-center text-[#0d6efd] font-bold text-2xl tracking-tight cursor-pointer">
+                            <span className="p-1.5">
+                                <Image src="/logo-symbol.svg" alt="" width={40} height={40} />
+                            </span>
+                            <span className="opacity-50 text-3xl">Brand</span>
+                        </div>
+                    </Link>
+                    <div className="flex md:hidden gap-5 text-gray-500">
+                        <div className="flex flex-col items-center"></div>
+                        <div className="flex flex-col items-center relative">
+                            <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div className="hidden md:flex gap-5 lg:gap-7 text-gray-500 shrink-0 items-center justify-end">
+                    {[
+                        { label: 'Profile', icon: <img src="/profile.svg" /> },
+                        {
+                            label: 'Message', icon: <img src="/Vector.svg" />
+                        },
+                        { label: 'Orders', icon: <img src="/heart.svg" className="mb-1" /> },
+                        { label: 'My cart', icon: <img src="/bucket.svg" />, count: 3 },
+                    ].map((item) => (
+                        <div key={item.label} className="flex flex-col items-center cursor-pointer hover:text-blue-600 transition-colors">
+                            <div className="relative text-xl">
+                                {item.icon}
+                                {item.count && (
+                                    <div className="absolute -top-1 -right-2 bg-blue-600 text-white text-[10px] px-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center">
+                                        {item.count}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="text-[11px] mt-1">{item.label}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
         <div className="bg-[#F7F8FA] min-h-screen font-sans">
 
             <main className="w-full mx-auto px-24 py-8">
@@ -27,7 +81,7 @@ export default function CartPage() {
 
                 <div className="flex flex-col lg:flex-row gap-6 mb-8">
 
-                    {/* Left Column: Cart Items */}
+
                     <div className="flex-1">
                         <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 sm:p-6 mb-4">
                             {cartItems.map((item) => (
@@ -46,13 +100,13 @@ export default function CartPage() {
                         </div>
                     </div>
 
-                    {/* Right Column: Order Summary */}
+
                     <div className="w-full lg:w-[280px] shrink-0">
                         <OrderSummary />
                     </div>
                 </div>
 
-                {/* Trust Features */}
+
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
                     {[
                         {
@@ -85,7 +139,7 @@ export default function CartPage() {
                     ))}
                 </div>
 
-                {/* Saved For Later Section */}
+
                 <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
                     <h3 className="text-xl font-bold text-gray-900 mb-6">Saved for later</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -95,7 +149,7 @@ export default function CartPage() {
                     </div>
                 </div>
 
-                {/* Blue Discount Banner */}
+
                 <div className="bg-[#005ADE] rounded-lg p-8 flex flex-col md:flex-row justify-between items-center relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-2/3 h-full bg-[#004dc0] skew-x-12 translate-x-20 z-0 opacity-50"></div>
 
@@ -111,5 +165,7 @@ export default function CartPage() {
             </main>
 
         </div>
+        <Footer />
+        </>
     );
 }

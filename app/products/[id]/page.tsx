@@ -3,6 +3,9 @@ import Image from 'next/image';
 import ProductGallery from '@/components/product/ProductGallery';
 import ProductInfo from '@/components/product/ProductInfo';
 import SupplierCard from '@/components/product/SupplierCard';
+import Header from '@/components/Header';
+import MenuBar from '@/components/MenuBar';
+import Footer from '@/components/Footer';
 
 // Mock Data for "You may like"
 const recommended = [
@@ -24,6 +27,9 @@ const related = [
 
 export default function ProductDetailPage() {
     return (
+        <>
+         <Header />
+            <MenuBar />
         <div className="bg-[#F7F8FA] min-h-screen pb-10">
 
 
@@ -148,6 +154,9 @@ export default function ProductDetailPage() {
                 </div>
 
             </main>
+
         </div>
+         <Footer />
+         </>
     );
 }
