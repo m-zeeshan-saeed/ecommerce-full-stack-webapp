@@ -1,17 +1,18 @@
 "use client";
-import { headerData } from "../constants/data";
+import { headerData, countries, languages } from "../constants/data";
 import Link from "next/link";
 import { useState } from "react";
 import CountrySelect from "../components/countryselect/CountrySelect";
+import CurrencySelect from "../components/currencyselect/CurrencySelect";
 
 
 export default function MenuBar() {
     const [country, setCountry] = useState('0');
+    const [language, setLanguage] = useState(languages[0]);
     return (
         <div className="border-b border-gray-200 max-w-full mx-auto px-4 lg:px-20 flex flex-wrap gap-6 bg-white space-y-6">
             <div className="w-full mx-auto sm:px-6 lg:px-2 py-3 flex items-center justify-between text-sm text-gray-900">
 
-                {/* Left Side: Navigation Links */}
                 <div className="flex items-center overflow-x-auto no-scrollbar whitespace-nowrap gap-2 md:gap-6">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-list shrink-0" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
@@ -23,24 +24,46 @@ export default function MenuBar() {
                     ))}
                 </div>
 
-                {/* Right Side: Currency & Ship To */}
+
                 <div className="hidden sm:flex items-center gap-4 shrink-0 font-medium">
-                    {/* Language/Currency Selector */}
-                    <div className="flex items-center gap-1 cursor-pointer hover:text-blue-600 transition-colors">
-                        <div>English, USD</div>
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
+
+                     <div className="hidden lg:flex items-center gap-2 px-3">
+                        <span className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                            <div className="relative">
+                                <CurrencySelect
+                                    value={language}
+                                    onChange={(e: any) => {
+                                        setLanguage(e);
+                                    }}
+                                    placeholder="Select Language & Currency"
+                                />
+                            </div>
+                        </span>
                     </div>
 
-                    {/* Ship To Dropdown Section */}
                     <div className="hidden lg:flex items-center gap-2 px-3">
                         <span className="flex items-center gap-2 text-sm font-medium text-gray-700">Ship to
                             <div className="relative">
                                 <CountrySelect
                                     onChange={(e: any) => {
                                         setCountry(e.id);
-                                        console.log("Selected Country:", e);
+                                        // Auto-select language based on country
+                                        let langCode = 'EN';
+                                        if (e.id === 'GE') langCode = 'DE';
+                                        else if (e.id === 'FR') langCode = 'FR';
+                                        else if (e.id === 'IT') langCode = 'IT';
+                                        else if (e.id === 'CN') langCode = 'ZH';
+                                        else if (e.id === 'AR') langCode = 'AR'; // Assuming AR country exists, if not it falls back to EN or custom logic
+                                        else if (e.id === 'ES') langCode = 'ES';
+                                        else if (e.id === 'PT') langCode = 'PT';
+                                        else if (e.id === 'RU') langCode = 'RU';
+                                        else if (e.id === 'TR') langCode = 'TR';
+                                        else if (e.id === 'VN') langCode = 'VI';
+
+                                        const selectedLang = languages.find(l => l.code === langCode);
+                                        if (selectedLang) {
+                                            setLanguage(selectedLang);
+                                        }
                                     }}
                                     placeholder="Select Country"
                                 />

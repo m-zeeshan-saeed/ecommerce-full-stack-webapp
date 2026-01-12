@@ -47,7 +47,7 @@ const DealsOffers = () => {
   return (
     <div className="w-full">
 
-      <div className="w-full bg-white border border-gray-300 rounded-lg overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
+      <div className="w-full bg-white border border-gray-300 rounded-lg overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
 
 
         <CountDown />

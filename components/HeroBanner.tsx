@@ -1,6 +1,8 @@
+"use client";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 export default function HeroBanner() {
+    const router = useRouter();
     return (
         <div className="flex flex-col lg:flex-row h-full gap-3 p-4 lg:p-0">
 
@@ -42,10 +44,10 @@ export default function HeroBanner() {
                             <div className="text-xs text-[#6b7280]">let’s get started</div>
                         </div>
                     </div>
-                    <button className="bg-[#0d6efd] hover:bg-blue-700 transition-colors text-white w-full py-2 rounded-md text-sm font-medium">
+                    <button onClick={() => router.push('/signup')} className="bg-[#0d6efd] hover:bg-blue-700 transition-colors text-white w-full py-2 rounded-md text-sm font-medium">
                         Join now
                     </button>
-                    <button className="bg-white border border-gray-200 text-[#0d6efd] hover:bg-gray-50 transition-colors w-full mt-2 py-2 rounded-md text-sm font-medium">
+                    <button onClick={() => router.push('/login')} className="bg-white border border-gray-200 text-[#0d6efd] hover:bg-gray-50 transition-colors w-full mt-2 py-2 rounded-md text-sm font-medium">
                         Log in
                     </button>
                 </div>

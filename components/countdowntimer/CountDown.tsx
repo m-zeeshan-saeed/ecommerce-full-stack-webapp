@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 const CountDown = () => {
-    const deadline = "Jan 10, 2026 23:59:59";
+    const deadline = "Jan 25, 2026 23:59:59";
     const [days, setDays] = useState(0);
     const [timer, setTimer] = useState({
         hours: 0,
@@ -38,14 +38,14 @@ const CountDown = () => {
     }, [deadline]);
 
     return (
-        <div className="p-5 flex flex-col   min-h-[160px]">
+        <div className="p-5 flex flex-col min-h-[250px] justify-start items-start col-span-2">
             <div>
-                <div className=" font-extrabold text-lg text-gray-900 leading-tight">Deals and offers</div>
-                <div className="text-gray-500 text-lg mt-1">Hygiene equipments</div>
+                <div className=" font-extrabold text-[25px] text-gray-900 leading-tight">Deals and offers</div>
+                <div className="text-gray-500 text-[20px] mt-1">Hygiene equipments</div>
             </div>
 
 
-            <div className="flex gap-1.5 mt-4">
+            <div className="flex gap-1.5 mt-4 w-full items-center">
                 {[
                     { label: "Days", value: days },
                     { label: "Hours", value: timer.hours },
@@ -54,10 +54,10 @@ const CountDown = () => {
                 ].map((item, i) => (
                     <div
                         key={i}
-                        className="bg-gray-700  text-white text-center w-11 h-12 rounded flex flex-col justify-center"
+                        className="bg-gray-700 text-white text-center min-w-11 w-[25%] aspect-square rounded-lg flex flex-col justify-center"
                     >
-                        <div className="font-bold  text-sm leading-none mb-1px">{item.value}</div>
-                        <div className="text-[10px]  text-gray-200">{item.label}</div>
+                        <div className="font-bold text-lg leading-none mb-1px">{item.value}</div>
+                        <div className="text-xs  text-gray-200">{item.label}</div>
                     </div>
                 ))}
             </div>
