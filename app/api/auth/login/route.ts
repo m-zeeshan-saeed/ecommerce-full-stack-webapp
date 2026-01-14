@@ -9,6 +9,8 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET is not defined in environment variables");
 }
 
+const secret = JWT_SECRET as string;
+
 export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
@@ -43,7 +45,7 @@ export async function POST(req: Request) {
     // Generate JWT
     const token = jwt.sign(
       { userId: user._id, email: user.email, name: user.name, role: user.role },
-      JWT_SECRET,
+      secret,
       { expiresIn: "7d" }
     );
 

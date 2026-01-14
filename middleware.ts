@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "";
 
 if (!JWT_SECRET) {
-  // We can't throw in middleware easily without crashing, but we can log and fail safe
   console.error("JWT_SECRET is not defined in environment variables");
 }
+
+const encodedSecret = new TextEncoder().encode(JWT_SECRET);
 
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
@@ -20,8 +21,7 @@ export async function middleware(request: NextRequest) {
     }
 
     try {
-      const secret = new TextEncoder().encode(JWT_SECRET);
-      await jwtVerify(token, secret);
+      await jwtVerify(token, encodedSecret);
       return NextResponse.next();
     } catch (error) {
       return NextResponse.redirect(new URL("/login", request.url));
@@ -34,8 +34,7 @@ export async function middleware(request: NextRequest) {
     if (pathname === "/admin/login" || pathname === "/admin/signup") {
       if (token) {
         try {
-          const secret = new TextEncoder().encode(JWT_SECRET);
-          const { payload } = await jwtVerify(token, secret);
+          const { payload } = await jwtVerify(token, encodedSecret);
           if (payload.role === "admin") {
             return NextResponse.redirect(new URL("/admin", request.url));
           }
@@ -52,8 +51,7 @@ export async function middleware(request: NextRequest) {
     }
 
     try {
-      const secret = new TextEncoder().encode(JWT_SECRET);
-      const { payload } = await jwtVerify(token, secret);
+      const { payload } = await jwtVerify(token, encodedSecret);
 
       if (payload.role !== "admin") {
         return NextResponse.redirect(new URL("/dashboard", request.url));
@@ -68,8 +66,7 @@ export async function middleware(request: NextRequest) {
   // Redirect logged-in users away from auth pages
   if (token && (pathname === "/login" || pathname === "/signup")) {
     try {
-      const secret = new TextEncoder().encode(JWT_SECRET);
-      const { payload } = await jwtVerify(token, secret);
+      const { payload } = await jwtVerify(token, encodedSecret);
       const redirectUrl = payload.role === "admin" ? "/admin" : "/dashboard";
       return NextResponse.redirect(new URL(redirectUrl, request.url));
     } catch (error) {

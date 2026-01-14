@@ -10,12 +10,13 @@ if (!JWT_SECRET) {
   console.warn("JWT_SECRET is not defined");
 }
 
+const encodedSecret = new TextEncoder().encode(JWT_SECRET);
+
 async function verifyAdmin(req: Request) {
   const token = req.headers.get("cookie")?.split("; ").find(c => c.startsWith("token="))?.split("=")[1];
   if (!token) return false;
   try {
-    const secret = new TextEncoder().encode(JWT_SECRET);
-    const { payload } = await jwtVerify(token, secret);
+    const { payload } = await jwtVerify(token, encodedSecret);
     return payload.role === "admin";
   } catch (error) {
     return false;
