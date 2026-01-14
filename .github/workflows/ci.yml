@@ -32,7 +32,7 @@ jobs:
     - name: Run build
       run: npm run build
       env:
-        MONGO_URL: ${{ secrets.MONGO_URL || 'mongodb://localhost:27017/test' }}
-        JWT_SECRET: ${{ secrets.JWT_SECRET || 'test_secret' }}
-        NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'test_secret' }}
+        MONGO_URL: ${{ secrets.MONGO_URL }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
         NEXTAUTH_URL: http://localhost:3000
