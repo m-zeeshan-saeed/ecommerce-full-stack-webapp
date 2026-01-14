@@ -13,9 +13,10 @@ export async function POST(request: NextRequest) {
       { message: "Product created successfully", product },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
     return NextResponse.json(
-      { error: error.message || "Failed to create product" },
+      { message: "Error creating product", error: errorMessage },
       { status: 500 }
     );
   }
@@ -23,9 +24,10 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    await connectToDatabase();
-    const searchParams = request.nextUrl.searchParams;
+    const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
+
+    await connectToDatabase();
 
     let query = {};
     if (category) {
@@ -33,11 +35,11 @@ export async function GET(request: NextRequest) {
     }
 
     const products = await Product.find(query);
-
-    return NextResponse.json({ products }, { status: 200 });
-  } catch (error: any) {
+    return NextResponse.json(products, { status: 200 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
     return NextResponse.json(
-      { error: error.message || "Failed to fetch products" },
+      { message: "Error fetching products", error: errorMessage },
       { status: 500 }
     );
   }

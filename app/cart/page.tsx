@@ -10,17 +10,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useCart } from '@/contexts/CartContext';
 
-interface CartItemType {
-    id: number;
-    _id: string;
-    title: string;
-    size: string;
-    color: string;
-    seller: string;
-    price: number;
-    image: string;
-    quantity: number;
-}
+// CartItemType interface removed
 
 interface SavedItemType {
     id: number;
@@ -29,11 +19,7 @@ interface SavedItemType {
     image: string;
 }
 
-const initialCartItems: CartItemType[] = [
-    { id: 1, _id: "65a2f5e8d9b3a1a2b3c4d5e6", title: "T-shirts with multiple colors, for men and lady", size: "Medium", color: "Blue", seller: "Artel Market", price: 78.99, image: "/1.png", quantity: 1 },
-    { id: 2, _id: "65a2f5e8d9b3a1a2b3c4d5e7", title: "Jeans school bag for boys and girls", size: "Medium", color: "Blue", seller: "Best Factory LLC", price: 39.00, image: "/2.png", quantity: 1 },
-    { id: 3, _id: "65a2f5e8d9b3a1a2b3c4d5e8", title: "Modern beige lamp for bedroom", size: "Medium", color: "Beige", seller: "Artel Market", price: 170.50, image: "/3.png", quantity: 1 },
-];
+// initialCartItems removed
 
 const initialSavedItems: SavedItemType[] = [
     { id: 4, title: "GoPro HERO6 4K Action Camera - Black", price: 99.50, image: "/12.png" },

@@ -55,8 +55,8 @@ export default function AddProductPage() {
           text: data.error || "Failed to add product.",
         });
       }
-    } catch (error) {
-      setMessage({ type: "error", text: "Something went wrong." });
+    } catch {
+      alert('An error occurred while adding the product');
     } finally {
       setLoading(false);
     }

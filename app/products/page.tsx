@@ -112,7 +112,6 @@ import { useSearchParams } from "next/navigation";
 function ProductListingContent() {
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get('search')?.toLowerCase() || "";
-    const categoryFilter = searchParams.get('category');
 
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [selectedRatings, setSelectedRatings] = useState<number[]>([]);
