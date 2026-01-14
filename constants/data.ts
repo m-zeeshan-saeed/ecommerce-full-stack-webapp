@@ -73,10 +73,10 @@ export const countries=[{ id: 'GE', name: 'Germany', code: 'GE', flag: 'https://
     { id: 'GB', name: 'Great Britain', code: 'GB', flag: 'https://flagcdn.com/gb.svg' },
     { id: 'CN', name: 'China', code: 'CN', flag: 'https://flagcdn.com/cn.svg' },]
 
-export const languages=[{ id: 'EN', name: 'English', code: 'EN', currency: 'USD' },
+export const languages=[{ id: 'DE', name: 'German', code: 'DE', currency: 'EUR' },
     { id: 'AR', name: 'Arabic', code: 'AR', currency: 'AED' },
     { id: 'FR', name: 'French', code: 'FR', currency: 'EUR' },
-    { id: 'DE', name: 'German', code: 'DE', currency: 'EUR' },
+    { id: 'EN', name: 'English', code: 'EN', currency: 'USD' },
     { id: 'ES', name: 'Spanish', code: 'ES', currency: 'EUR' },
     { id: 'IT', name: 'Italian', code: 'IT', currency: 'EUR' },
     { id: 'PT', name: 'Portuguese', code: 'PT', currency: 'EUR' },
