@@ -3,32 +3,174 @@
 import CartItem from '@/components/cart/CartItem';
 import OrderSummary from '@/components/cart/OrderSummary';
 import SavedItemCard from '@/components/cart/SavedItemCard';
+import PaymentMethod from '@/components/cart/PaymentMethod';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
 
+interface CartItemType {
+    id: number;
+    _id: string;
+    title: string;
+    size: string;
+    color: string;
+    seller: string;
+    price: number;
+    image: string;
+    quantity: number;
+}
 
-const cartItems = [
-    { id: 1, title: "T-shirts with multiple colors, for men and lady", size: "Medium", color: "Blue", seller: "Artel Market", price: 78.99, image: "/1.png" },
-    { id: 2, title: "Jeans school bag for boys and girls", size: "Medium", color: "Blue", seller: "Best Factory LLC", price: 39.00, image: "/2.png" },
-    { id: 3, title: "Modern beige lamp for bedroom", size: "Medium", color: "Beige", seller: "Artel Market", price: 170.50, image: "/3.png" },
+interface SavedItemType {
+    id: number;
+    title: string;
+    price: number;
+    image: string;
+}
+
+const initialCartItems: CartItemType[] = [
+    { id: 1, _id: "65a2f5e8d9b3a1a2b3c4d5e6", title: "T-shirts with multiple colors, for men and lady", size: "Medium", color: "Blue", seller: "Artel Market", price: 78.99, image: "/1.png", quantity: 1 },
+    { id: 2, _id: "65a2f5e8d9b3a1a2b3c4d5e7", title: "Jeans school bag for boys and girls", size: "Medium", color: "Blue", seller: "Best Factory LLC", price: 39.00, image: "/2.png", quantity: 1 },
+    { id: 3, _id: "65a2f5e8d9b3a1a2b3c4d5e8", title: "Modern beige lamp for bedroom", size: "Medium", color: "Beige", seller: "Artel Market", price: 170.50, image: "/3.png", quantity: 1 },
 ];
 
-const savedItems = [
-    { id: 1, title: "GoPro HERO6 4K Action Camera - Black", price: 99.50, image: "/12.png" },
-    { id: 2, title: "GoPro HERO6 4K Action Camera - Black", price: 99.50, image: "/5.png" },
-    { id: 3, title: "GoPro HERO6 4K Action Camera - Black", price: 99.50, image: "/6.png" },
-    { id: 4, title: "GoPro HERO6 4K Action Camera - Black", price: 99.50, image: "/7.png" },
+const initialSavedItems: SavedItemType[] = [
+    { id: 4, title: "GoPro HERO6 4K Action Camera - Black", price: 99.50, image: "/12.png" },
+    { id: 5, title: "GoPro HERO6 4K Action Camera - Black", price: 99.50, image: "/5.png" },
+    { id: 6, title: "GoPro HERO6 4K Action Camera - Black", price: 99.50, image: "/6.png" },
+    { id: 7, title: "GoPro HERO6 4K Action Camera - Black", price: 99.50, image: "/7.png" },
 ];
 
 export default function CartPage() {
+    const [cartItems, setCartItems] = useState<CartItemType[]>(initialCartItems);
+    const [savedItems, setSavedItems] = useState<SavedItemType[]>(initialSavedItems);
+    const [paymentMethod, setPaymentMethod] = useState('card');
+    const [isCheckedOut, setIsCheckedOut] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
+
+    // Handler functions
+    const handleRemoveItem = (id: number) => {
+        setCartItems(cartItems.filter(item => item.id !== id));
+    };
+
+    const handleSaveForLater = (id: number) => {
+        const itemToSave = cartItems.find(item => item.id === id);
+        if (itemToSave) {
+            const savedItem: SavedItemType = {
+                id: itemToSave.id,
+                title: itemToSave.title,
+                price: itemToSave.price,
+                image: itemToSave.image
+            };
+            setSavedItems([...savedItems, savedItem]);
+            setCartItems(cartItems.filter(item => item.id !== id));
+        }
+    };
+
+    const handleQuantityChange = (id: number, quantity: number) => {
+        setCartItems(cartItems.map(item =>
+            item.id === id ? { ...item, quantity } : item
+        ));
+    };
+
+    const handleMoveToCart = (id: number) => {
+        const itemToMove = savedItems.find(item => item.id === id);
+        if (itemToMove) {
+            const cartItem: CartItemType = {
+                id: itemToMove.id,
+                _id: `65a2f5e8d9b3a1a2b3c4d5e${itemToMove.id}`,
+                title: itemToMove.title,
+                size: "Medium",
+                color: "Blue",
+                seller: "Artel Market",
+                price: itemToMove.price,
+                image: itemToMove.image,
+                quantity: 1
+            };
+            setCartItems([...cartItems, cartItem]);
+            setSavedItems(savedItems.filter(item => item.id !== id));
+        }
+    };
+
+    const handleRemoveSavedItem = (id: number) => {
+        setSavedItems(savedItems.filter(item => item.id !== id));
+    };
+
+    const handleRemoveAll = () => {
+        if (window.confirm('Are you sure you want to remove all items from cart?')) {
+            setCartItems([]);
+        }
+    };
+
+    const handleCheckout = async () => {
+        if (cartItems.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+
+        setIsProcessing(true);
+        try {
+            const totalAmount = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const items = cartItems.map(item => ({
+                product: item._id,
+                quantity: item.quantity,
+                price: item.price
+            }));
+
+            const response = await fetch('/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    items,
+                    totalAmount,
+                    paymentMethod
+                }),
+            });
+
+            if (response.ok) {
+                setIsCheckedOut(true);
+            } else {
+                const data = await response.json();
+                alert(data.message || "Failed to place order. Please login first.");
+            }
+        } catch (error) {
+            console.error("Checkout error:", error);
+            alert("An error occurred during checkout.");
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
+    if (isCheckedOut) {
+        return (
+            <div className="bg-[#F7F8FA] min-h-screen font-sans flex items-center justify-center px-4">
+                <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center border border-gray-100 animate-in fade-in zoom-in duration-500">
+                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Order Success!</h2>
+                    <p className="text-gray-500 mb-8">
+                        Thank you for your purchase. Your order has been placed successfully using
+                        <span className="font-bold text-gray-900"> {paymentMethod === 'card' ? 'Credit Card' : paymentMethod === 'paypal' ? 'PayPal' : 'Cash on Delivery'}</span>.
+                    </p>
+                    <Link href="/">
+                        <button className="w-full bg-[#127FFF] hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-blue-200 active:scale-95">
+                            Continue Shopping
+                        </button>
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <>
             <div className="bg-white border-b border-gray-200 px-15">
-
-                <div className="w-full mx-auto px-4 md:px-6 py-3 flex justify-between   flex-col gap-y-4 md:flex-row md:items-center md:gap-x-6">
-
-
+                <div className="w-full mx-auto px-4 md:px-6 py-3 flex justify-between flex-col gap-y-4 md:flex-row md:items-center md:gap-x-6">
                     <div className="flex items-center justify-start w-full md:w-auto">
                         <Link href="/">
                             <div className="flex items-center text-[#0d6efd] font-bold text-2xl tracking-tight cursor-pointer">
@@ -41,28 +183,22 @@ export default function CartPage() {
                         <div className="flex md:hidden gap-5 text-gray-500">
                             <div className="flex flex-col items-center"></div>
                             <div className="flex flex-col items-center relative">
-                                <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</div>
+                                <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">{cartItems.length}</div>
                             </div>
                         </div>
                     </div>
 
-
-
-
-
                     <div className="hidden md:flex gap-5 lg:gap-7 text-gray-500 shrink-0 items-center justify-end">
                         {[
                             { label: 'Profile', icon: <Image src="/profile.svg" alt="Profile" width={20} height={20} /> },
-                            {
-                                label: 'Message', icon: <Image src="/Vector.svg" alt="Message" width={20} height={20} />
-                            },
+                            { label: 'Message', icon: <Image src="/Vector.svg" alt="Message" width={20} height={20} /> },
                             { label: 'Orders', icon: <Image src="/heart.svg" className="mb-1" alt="Orders" width={20} height={20} /> },
-                            { label: 'My cart', icon: <Image src="/bucket.svg" alt="Cart" width={20} height={20} />, count: 3 },
+                            { label: 'My cart', icon: <Image src="/bucket.svg" alt="Cart" width={20} height={20} />, count: cartItems.length },
                         ].map((item) => (
                             <div key={item.label} className="flex flex-col items-center cursor-pointer hover:text-blue-600 transition-colors">
                                 <div className="relative text-xl">
                                     {item.icon}
-                                    {item.count && (
+                                    {item.count !== undefined && item.count > 0 && (
                                         <div className="absolute -top-1 -right-2 bg-blue-600 text-white text-[10px] px-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center">
                                             {item.count}
                                         </div>
@@ -74,38 +210,68 @@ export default function CartPage() {
                     </div>
                 </div>
             </div>
-            <div className="bg-[#F7F8FA] min-h-screen font-sans">
 
+            <div className="bg-[#F7F8FA] min-h-screen font-sans">
                 <main className="w-full mx-auto px-24 py-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">My cart ({cartItems.length})</h2>
 
                     <div className="flex flex-col lg:flex-row gap-6 mb-8">
-
-
                         <div className="flex-1">
                             <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 sm:p-6 mb-4">
-                                {cartItems.map((item) => (
-                                    <CartItem key={item.id} item={item} />
-                                ))}
+                                {cartItems.length === 0 ? (
+                                    <div className="text-center py-12">
+                                        <p className="text-gray-500 mb-4">Your cart is empty</p>
+                                        <Link href="/">
+                                            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium transition-colors">
+                                                Continue Shopping
+                                            </button>
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    <>
+                                        {cartItems.map((item) => (
+                                            <CartItem
+                                                key={item.id}
+                                                item={item}
+                                                onRemove={handleRemoveItem}
+                                                onSaveForLater={handleSaveForLater}
+                                                onQuantityChange={handleQuantityChange}
+                                            />
+                                        ))}
 
-                                <div className="flex justify-between items-center pt-4 mt-2">
-                                    <button className="flex items-center gap-2 bg-[#127FFF] hover:bg-blue-700 text-white px-5 py-2 rounded-md font-medium transition-colors shadow-sm">
-                                        <svg className="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                                        Back to shop
-                                    </button>
-                                    <button className="text-blue-600 font-medium border border-gray-200 px-4 py-2 rounded bg-white hover:bg-gray-50 transition-colors">
-                                        Remove all
-                                    </button>
-                                </div>
+                                        <div className="flex justify-between items-center pt-4 mt-2">
+                                            <Link href="/">
+                                                <button className="flex items-center gap-2 bg-[#127FFF] hover:bg-blue-700 text-white px-5 py-2 rounded-md font-medium transition-colors shadow-sm">
+                                                    <svg className="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                                                    Back to shop
+                                                </button>
+                                            </Link>
+                                            <button
+                                                onClick={handleRemoveAll}
+                                                className="text-blue-600 font-medium border border-gray-200 px-4 py-2 rounded bg-white hover:bg-gray-50 transition-colors"
+                                            >
+                                                Remove all
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
                             </div>
-                        </div>
 
+                            <PaymentMethod
+                                selectedMethod={paymentMethod}
+                                onSelect={setPaymentMethod}
+                            />
+                        </div>
 
                         <div className="w-full lg:w-[280px] shrink-0">
-                            <OrderSummary />
+                            <OrderSummary
+                                onCheckout={handleCheckout}
+                                isProcessing={isProcessing}
+                                subtotal={cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)}
+                                itemCount={cartItems.length}
+                            />
                         </div>
                     </div>
-
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
                         {[
@@ -139,16 +305,21 @@ export default function CartPage() {
                         ))}
                     </div>
 
-
-                    <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
-                        <h3 className="text-xl font-bold text-gray-900 mb-6">Saved for later</h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {savedItems.map((item, i) => (
-                                <SavedItemCard key={i} data={item} />
-                            ))}
+                    {savedItems.length > 0 && (
+                        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-8">
+                            <h3 className="text-xl font-bold text-gray-900 mb-6">Saved for later</h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                {savedItems.map((item) => (
+                                    <SavedItemCard
+                                        key={item.id}
+                                        data={item}
+                                        onMoveToCart={handleMoveToCart}
+                                        onRemove={handleRemoveSavedItem}
+                                    />
+                                ))}
+                            </div>
                         </div>
-                    </div>
-
+                    )}
 
                     <div className="bg-[#005ADE] rounded-lg p-8 flex flex-col md:flex-row justify-between items-center relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-2/3 h-full bg-[#004dc0] skew-x-12 translate-x-20 z-0 opacity-50"></div>
@@ -161,9 +332,7 @@ export default function CartPage() {
                             Shop now
                         </button>
                     </div>
-
                 </main>
-
             </div>
             <Footer />
         </>

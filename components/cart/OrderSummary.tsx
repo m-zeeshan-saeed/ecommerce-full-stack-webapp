@@ -1,6 +1,13 @@
 import Image from 'next/image';
 
-export default function OrderSummary() {
+interface OrderSummaryProps {
+    onCheckout?: () => void;
+    isProcessing?: boolean;
+    subtotal: number;
+    itemCount: number;
+}
+
+export default function OrderSummary({ onCheckout, isProcessing, subtotal, itemCount }: OrderSummaryProps) {
     return (
         <div className="bg-white border border-gray-200 rounded-lg p-5 h-fit shadow-sm">
             {/* Coupon */}
@@ -22,27 +29,39 @@ export default function OrderSummary() {
             <div className="space-y-3 border-b border-gray-200 pb-4 mb-4 text-gray-600">
                 <div className="flex justify-between">
                     <span>Subtotal:</span>
-                    <span className="text-gray-900">$1403.97</span>
+                    <span className="text-gray-900">${subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                     <span>Discount:</span>
-                    <span className="text-red-500">- $60.00</span>
+                    <span className="text-red-500">- $0.00</span>
                 </div>
                 <div className="flex justify-between">
                     <span>Tax:</span>
-                    <span className="text-green-600">+ $14.00</span>
+                    <span className="text-green-600">+ ${(subtotal * 0.1).toFixed(2)}</span>
                 </div>
             </div>
 
             {/* Grand Total */}
             <div className="flex justify-between items-center mb-6">
                 <span className="font-bold text-gray-900">Total:</span>
-                <span className="text-xl font-bold text-gray-900">$1357.97</span>
+                <span className="text-xl font-bold text-gray-900">${(subtotal * 1.1).toFixed(2)}</span>
             </div>
 
             {/* Checkout Button */}
-            <button className="w-full bg-[#00B517] hover:bg-[#009c14] text-white font-medium py-3 rounded-lg transition-colors shadow-sm mb-4">
-                Checkout
+            <button
+                onClick={onCheckout}
+                disabled={isProcessing}
+                className={`w-full text-white font-medium py-3 rounded-lg transition-all shadow-sm mb-4 flex items-center justify-center gap-2 ${isProcessing ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#00B517] hover:bg-[#009c14]'
+                    }`}
+            >
+                {isProcessing ? (
+                    <>
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        Processing...
+                    </>
+                ) : (
+                    'Checkout'
+                )}
             </button>
 
             {/* Payment Icons */}

@@ -1,20 +1,20 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions, Session } from "next-auth";
 import { connectToDatabase } from "@/db";
 import User from "@/models/User";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     // Providers removed as per request
   ],
   callbacks: {
-    async session({ session }) {
+    async session({ session }: { session: Session }) {
       // Add user ID and role to session
       await connectToDatabase();
       const dbUser = await User.findOne({ email: session.user?.email });
       if (dbUser && session.user) {
-        const user = session.user as { name?: string | null; email?: string | null; image?: string | null; id?: string; role?: string };
-        user.id = dbUser._id.toString();
-        user.role = dbUser.role;
+        const sessionUser = session.user as { id?: string; role?: string; email?: string | null };
+        sessionUser.id = dbUser._id.toString();
+        sessionUser.role = dbUser.role;
       }
       return session;
     },
@@ -23,6 +23,8 @@ const handler = NextAuth({
   pages: {
     signIn: "/login",
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

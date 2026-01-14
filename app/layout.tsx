@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 };
 
 import { AuthProvider } from "@/components/providers/AuthProvider";
+import { WishlistProvider } from "@/contexts/WishlistContext";
 
 export default function RootLayout({
   children,
@@ -30,7 +31,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <WishlistProvider>
+            {children}
+          </WishlistProvider>
+        </AuthProvider>
       </body>
     </html>
   );

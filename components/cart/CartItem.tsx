@@ -1,7 +1,7 @@
 "use client";
 import Image from 'next/image';
 
-interface CartItemProps {
+interface CartItemData {
     id: number;
     title: string;
     size: string;
@@ -9,9 +9,17 @@ interface CartItemProps {
     seller: string;
     price: number;
     image: string;
+    quantity: number;
 }
 
-export default function CartItem({ item }: { item: CartItemProps }) {
+interface CartItemProps {
+    item: CartItemData;
+    onRemove: (id: number) => void;
+    onSaveForLater: (id: number) => void;
+    onQuantityChange: (id: number, quantity: number) => void;
+}
+
+export default function CartItem({ item, onRemove, onSaveForLater, onQuantityChange }: CartItemProps) {
     return (
         <div className="flex flex-col sm:flex-row gap-4 py-6 border-b border-gray-200 last:border-b-0">
             {/* Image */}
@@ -29,20 +37,33 @@ export default function CartItem({ item }: { item: CartItemProps }) {
 
                 {/* Mobile Actions */}
                 <div className="flex gap-2 mt-2">
-                    <button className="text-red-500 text-sm border border-gray-200 rounded px-3 py-1 hover:bg-red-50 transition-colors">Remove</button>
-                    <button className="text-blue-600 text-sm border border-gray-200 rounded px-3 py-1 hover:bg-blue-50 transition-colors">Save for later</button>
+                    <button
+                        onClick={() => onRemove(item.id)}
+                        className="text-red-500 text-sm border border-gray-200 rounded px-3 py-1 hover:bg-red-50 transition-colors"
+                    >
+                        Remove
+                    </button>
+                    <button
+                        onClick={() => onSaveForLater(item.id)}
+                        className="text-blue-600 text-sm border border-gray-200 rounded px-3 py-1 hover:bg-blue-50 transition-colors"
+                    >
+                        Save for later
+                    </button>
                 </div>
             </div>
 
             {/* Price & Qty (Desktop aligned right) */}
             <div className="flex sm:flex-col items-center sm:items-end justify-between sm:gap-4 mt-2 sm:mt-0">
-                <span className="font-bold text-gray-900">${item.price.toFixed(2)}</span>
+                <span className="font-bold text-gray-900">${(item.price * item.quantity).toFixed(2)}</span>
 
-                <select className="border text-gray-600 border-gray-200 rounded px-2 py-1 text-sm bg-white cursor-pointer focus:outline-none focus:border-blue-500">
-                    <option>Qty: 1</option>
-                    <option>Qty: 2</option>
-                    <option>Qty: 3</option>
-                    <option>Qty: 9</option>
+                <select
+                    value={item.quantity}
+                    onChange={(e) => onQuantityChange(item.id, parseInt(e.target.value))}
+                    className="border text-gray-600 border-gray-200 rounded px-2 py-1 text-sm bg-white cursor-pointer focus:outline-none focus:border-blue-500"
+                >
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
+                        <option key={num} value={num}>Qty: {num}</option>
+                    ))}
                 </select>
             </div>
         </div>

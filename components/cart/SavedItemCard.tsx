@@ -1,28 +1,54 @@
-
+"use client";
 import Image from 'next/image';
 
-interface SavedProps {
-    price: number;
+interface SavedItemProps {
+    id: number;
     title: string;
+    price: number;
     image: string;
 }
 
-export default function SavedItemCard({ data }: { data: SavedProps }) {
+export default function SavedItemCard({
+    data,
+    onMoveToCart,
+    onRemove
+}: {
+    data: SavedItemProps;
+    onMoveToCart: (id: number) => void;
+    onRemove: (id: number) => void;
+}) {
     return (
-        <div className="bg-white border border-gray-200 rounded-lg p-4 flex flex-col hover:shadow-md transition-shadow">
-            <div className="relative w-full aspect-square mb-4 bg-gray-50 rounded flex items-center justify-center overflow-hidden">
-                <Image src={data.image} alt={data.title} fill className="object-contain p-4 mix-blend-multiply" />
+        <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow bg-white">
+            <div className="relative w-full h-32 mb-3 bg-gray-50 rounded flex items-center justify-center overflow-hidden">
+                <Image
+                    src={data.image}
+                    alt={data.title}
+                    fill
+                    className="object-contain p-2 mix-blend-multiply"
+                />
             </div>
-
-            <div className="mb-3">
-                <h4 className="font-bold text-gray-900 text-lg">${data.price.toFixed(2)}</h4>
-                <p className="text-gray-500 text-sm leading-snug line-clamp-2">{data.title}</p>
+            <h5 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-10">
+                {data.title}
+            </h5>
+            <div className="flex items-center justify-between mb-3">
+                <span className="font-bold text-gray-900">${data.price.toFixed(2)}</span>
             </div>
-
-            <button className="mt-auto flex items-center justify-center gap-2 border border-gray-200 rounded text-blue-600 font-medium py-2 hover:bg-blue-50 transition-colors">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                Move to cart
-            </button>
+            <div className="flex gap-2">
+                <button
+                    onClick={() => onMoveToCart(data.id)}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded transition-colors"
+                >
+                    Move to Cart
+                </button>
+                <button
+                    onClick={() => onRemove(data.id)}
+                    className="px-3 py-2 border border-gray-300 text-gray-600 hover:bg-gray-50 rounded transition-colors"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
         </div>
     );
 }

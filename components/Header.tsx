@@ -1,8 +1,39 @@
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useWishlist } from "@/contexts/WishlistContext";
 
 export default function Header() {
+    const { data: session } = useSession();
+    const { wishlistCount } = useWishlist();
+
+    const navigationItems = [
+        {
+            label: 'Profile',
+            icon: <Image src="/profile.svg" alt="Profile" width={20} height={20} />,
+            href: '/profile'
+        },
+        {
+            label: 'Message',
+            icon: <Image src="/Vector.svg" alt="Message" width={20} height={20} />,
+            href: '/messages'
+        },
+        {
+            label: 'Wishlist',
+            icon: <Image src="/heart.svg" className="mb-1" alt="Wishlist" width={20} height={20} />,
+            href: '/wishlist',
+            count: wishlistCount
+        },
+        {
+            label: 'My cart',
+            icon: <Image src="/bucket.svg" alt="Cart" width={20} height={20} />,
+            count: 3,
+            href: '/cart'
+        },
+    ];
+
     return (
         <div className="bg-white border-b border-gray-200 px-15">
 
@@ -48,25 +79,24 @@ export default function Header() {
 
 
                 <div className="hidden md:flex gap-5 lg:gap-7 text-gray-500 shrink-0">
-                    {[
-                        { label: 'Profile', icon: <Image src="/profile.svg" alt="Profile" width={20} height={20} /> },
-                        {
-                            label: 'Message', icon: <Image src="/Vector.svg" alt="Message" width={20} height={20} />
-                        },
-                        { label: 'Orders', icon: <Image src="/heart.svg" className="mb-1" alt="Orders" width={20} height={20} /> },
-                        { label: 'My cart', icon: <Image src="/bucket.svg" alt="Cart" width={20} height={20} />, count: 3 },
-                    ].map((item) => (
-                        <div key={item.label} className="flex flex-col items-center cursor-pointer hover:text-blue-600 transition-colors">
-                            <div className="relative text-xl">
-                                {item.icon}
-                                {item.count && (
-                                    <div className="absolute -top-1 -right-2 bg-blue-600 text-white text-[10px] px-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center">
-                                        {item.count}
-                                    </div>
-                                )}
+                    {navigationItems.map((item) => (
+                        <Link key={item.label} href={item.href}>
+                            <div className="flex flex-col items-center cursor-pointer hover:text-blue-600 transition-colors group">
+                                <div className="relative text-xl">
+                                    {item.icon}
+                                    {item.count && (
+                                        <div className="absolute -top-1 -right-2 bg-blue-600 text-white text-[10px] px-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center">
+                                            {item.count}
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="text-[11px] mt-1">
+                                    {item.label === 'Profile' && session?.user?.email
+                                        ? session.user.email.split('@')[0]
+                                        : item.label}
+                                </div>
                             </div>
-                            <div className="text-[11px] mt-1">{item.label}</div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
