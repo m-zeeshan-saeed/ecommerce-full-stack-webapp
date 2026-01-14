@@ -8,7 +8,7 @@ if (!MONGO_URL) {
 
 export async function connectToDatabase() {
     try {
-        await mongoose.connect(MONGO_URL as any);
+        await mongoose.connect(MONGO_URL as string);
         console.log("Connected to MongoDB");
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);

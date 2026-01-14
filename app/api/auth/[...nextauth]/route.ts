@@ -7,13 +7,14 @@ const handler = NextAuth({
     // Providers removed as per request
   ],
   callbacks: {
-    async session({ session, token }) {
+    async session({ session }) {
       // Add user ID and role to session
       await connectToDatabase();
       const dbUser = await User.findOne({ email: session.user?.email });
       if (dbUser && session.user) {
-        (session.user as any).id = dbUser._id.toString();
-        (session.user as any).role = dbUser.role;
+        const user = session.user as { name?: string | null; email?: string | null; image?: string | null; id?: string; role?: string };
+        user.id = dbUser._id.toString();
+        user.role = dbUser.role;
       }
       return session;
     },

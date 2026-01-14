@@ -3,11 +3,34 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+interface StatItem {
+    label: string;
+    value: string;
+    trend: string;
+    color: string;
+}
+
+interface TransactionItem {
+    name: string;
+    item: string;
+    price: string;
+    status: string;
+}
+
+interface ProductItem {
+    _id?: string;
+    name: string;
+    description: string;
+    price: number;
+    stockQuantity: number;
+    category: string;
+}
+
 export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
-    const [stats, setStats] = useState<any[]>([]);
-    const [transactions, setTransactions] = useState<any[]>([]);
-    const [products, setProducts] = useState<any[]>([]);
+    const [stats, setStats] = useState<StatItem[]>([]);
+    const [transactions, setTransactions] = useState<TransactionItem[]>([]);
+    const [products, setProducts] = useState<ProductItem[]>([]);
     const [activeTab, setActiveTab] = useState("overview");
     const [showAddModal, setShowAddModal] = useState(false);
     const [newProduct, setNewProduct] = useState({ name: "", description: "", price: 0, stockQuantity: 0, category: "" });

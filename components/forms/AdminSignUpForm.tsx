@@ -30,8 +30,8 @@ export default function AdminSignUpForm() {
             }
 
             router.push("/admin/login");
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Something went wrong");
         } finally {
             setLoading(false);
         }
@@ -44,7 +44,7 @@ export default function AdminSignUpForm() {
                     <Link href="/">
                         <div className="flex items-center justify-center">
                             <img src="/logo-symbol.svg"
-                                className="w-16 mr-2" />
+                                className="w-16 mr-2" alt="Logo" />
                             <span className="text-4xl xl:text-5xl font-extrabold text-blue-500 opacity-80">Admin</span>
                         </div>
                     </Link>

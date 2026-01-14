@@ -16,7 +16,7 @@ async function verifyAdmin(req: Request) {
   try {
     const { payload } = await jwtVerify(token, encodedSecret);
     return payload.role === "admin";
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 }
@@ -30,8 +30,9 @@ export async function GET(req: Request) {
     await connectToDatabase();
     const products = await Product.find({}).sort({ createdAt: -1 });
     return NextResponse.json(products);
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Internal Server Error";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }
 
@@ -45,7 +46,8 @@ export async function POST(req: Request) {
     const body = await req.json();
     const product = await Product.create(body);
     return NextResponse.json(product, { status: 201 });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Internal Server Error";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }

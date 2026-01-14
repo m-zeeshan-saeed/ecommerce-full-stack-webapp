@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+// import { signIn } from "next-auth/react"; // Removed as unused
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");
@@ -32,8 +32,8 @@ export default function LoginForm() {
             // Redirect to dashboard
             router.push("/dashboard");
             router.refresh(); // Trigger middleware re-check
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Something went wrong");
         } finally {
             setLoading(false);
         }
@@ -46,7 +46,7 @@ export default function LoginForm() {
                     <Link href="/">
                         <div className="flex items-center justify-center">
                             <img src="logo-symbol.svg"
-                                className="w-16 mr-2" />
+                                className="w-16 mr-2" alt="Logo" />
                             <span className="text-4xl xl:text-5xl font-extrabold text-blue-600 opacity-55">Brand</span>
                         </div>
                     </Link>
@@ -80,7 +80,7 @@ export default function LoginForm() {
                                     </span>
                                 </button>
                                 <p className="mt-6 text-xs text-gray-600 text-center">
-                                    I agree to abide by templatana's
+                                    I agree to abide by {"templatana's"}
                                     <a href="#" className="border-b border-gray-500 border-dotted">
                                         Terms of Service
                                     </a>
@@ -90,7 +90,7 @@ export default function LoginForm() {
                                     </a>
                                 </p>
                                 <div className="text-gray-600 text-center text-[12px] mt-5">
-                                    Don't have an account?
+                                    {"Don't"} have an account?
                                     <a href="/signup">
                                         <span className="text-blue-600 hover:text-blue-700 font-bold hover:underline cursor-pointer">
                                             Sign up

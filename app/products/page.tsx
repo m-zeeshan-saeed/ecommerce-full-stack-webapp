@@ -125,8 +125,8 @@ export default function ProductListingPage() {
 
     return (
         <>
-        <Header />
-                <MenuBar />
+            <Header />
+            <MenuBar />
             <div className="bg-[#f7f8fa] min-h-screen w-full px-16">
 
 
@@ -139,7 +139,7 @@ export default function ProductListingPage() {
                         <span className="text-gray-400">›</span>
                         <span>Clothings</span>
                         <span className="text-gray-400">›</span>
-                        <span>Men's wear</span>
+                        <span>Men&apos;s wear</span>
                         <span className="text-gray-400">›</span>
                         <span className="text-gray-900">Summer clothing</span>
                     </div>

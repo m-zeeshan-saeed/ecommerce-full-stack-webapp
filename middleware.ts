@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
     try {
       await jwtVerify(token, encodedSecret);
       return NextResponse.next();
-    } catch (error) {
+    } catch {
       return NextResponse.redirect(new URL("/login", request.url));
     }
   }
@@ -38,7 +38,7 @@ export async function middleware(request: NextRequest) {
           if (payload.role === "admin") {
             return NextResponse.redirect(new URL("/admin", request.url));
           }
-        } catch (error) {
+        } catch {
           // Token invalid, allow access to admin login/signup
           return NextResponse.next();
         }
@@ -58,7 +58,7 @@ export async function middleware(request: NextRequest) {
       }
 
       return NextResponse.next();
-    } catch (error) {
+    } catch {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
   }
@@ -69,7 +69,7 @@ export async function middleware(request: NextRequest) {
       const { payload } = await jwtVerify(token, encodedSecret);
       const redirectUrl = payload.role === "admin" ? "/admin" : "/dashboard";
       return NextResponse.redirect(new URL(redirectUrl, request.url));
-    } catch (error) {
+    } catch {
       return NextResponse.next();
     }
   }

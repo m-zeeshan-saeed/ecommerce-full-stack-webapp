@@ -9,22 +9,18 @@ interface CurrencySelectProps {
     className?: string;
 }
 
-export default function CurrencySelect({ onChange, value, placeholder, className }: CurrencySelectProps) {
+export default function CurrencySelect({ onChange, value, className }: CurrencySelectProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(value || languages[0]);
+    const [internalSelected, setInternalSelected] = useState(languages[0]);
     const [searchTerm, setSearchTerm] = useState("");
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const selected = value || internalSelected;
 
     const filtered = languages.filter(l =>
         l.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         l.currency.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
-    useEffect(() => {
-        if (value) {
-            setSelected(value);
-        }
-    }, [value]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -41,7 +37,7 @@ export default function CurrencySelect({ onChange, value, placeholder, className
     }, []);
 
     const handleSelect = (item: typeof languages[0]) => {
-        setSelected(item);
+        setInternalSelected(item);
         if (onChange) onChange(item);
         setIsOpen(false);
     };

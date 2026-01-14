@@ -18,7 +18,7 @@ async function verifyAdmin(req: Request) {
   try {
     const { payload } = await jwtVerify(token, encodedSecret);
     return payload.role === "admin";
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 }
@@ -45,6 +45,13 @@ export async function GET(req: Request) {
       .populate("user", "name")
       .lean();
 
+    interface Transaction {
+      user: { name: string } | null;
+      items: unknown[];
+      totalAmount: number;
+      status: string;
+    }
+
     return NextResponse.json({
       stats: [
         { label: "Total Revenue", value: `$${totalRevenue.toFixed(2)}`, trend: "+0%", color: "blue" },
@@ -52,14 +59,15 @@ export async function GET(req: Request) {
         { label: "Active Users", value: activeUsers.toString(), trend: "+0%", color: "green" },
         { label: "Total Products", value: totalProducts.toString(), trend: "+0%", color: "red" },
       ],
-      recentTransactions: recentTransactions.map((t: any) => ({
+      recentTransactions: (recentTransactions as unknown as Transaction[]).map((t) => ({
         name: t.user?.name || "Unknown",
         item: `${t.items.length} items`,
         price: `$${t.totalAmount.toFixed(2)}`,
         status: t.status.charAt(0).toUpperCase() + t.status.slice(1)
       }))
     });
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Internal Server Error";
+    return NextResponse.json({ message }, { status: 500 });
   }
 }

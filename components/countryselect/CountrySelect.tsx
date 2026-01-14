@@ -4,7 +4,7 @@ import Image from "next/image"
 import { countries } from "../../constants/data"
 
 interface CountrySelectProps {
-    onChange: (country: { id: string, name: string }) => void;
+    onChange: (country: { id: string, name: string, code: string, flag: string }) => void;
     placeholder?: string;
     className?: string;
 }

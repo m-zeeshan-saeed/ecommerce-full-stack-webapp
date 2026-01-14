@@ -44,7 +44,7 @@ export default function SupplierCard() {
                     Send inquiry
                 </button>
                 <button className="w-full bg-white border border-gray-200 text-gray-900 font-medium py-2 rounded-md hover:bg-gray-50 transition-colors">
-                    Seller's profile
+                    Seller&apos;s profile
                 </button>
             </div>
         </div>

@@ -8,7 +8,7 @@ export default function CategorySidebar() {
     return (
         <div className="w-full">
             <ul className="flex lg:flex-col flex-row gap-1 lg:gap-0 overflow-x-auto no-scrollbar py-2 lg:py-0">
-                {categories.map((items, index) => (
+                {categories.map((items) => (
                     <li
                         key={items.category}
                         className={`

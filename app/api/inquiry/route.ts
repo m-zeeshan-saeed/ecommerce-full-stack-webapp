@@ -33,10 +33,11 @@ const validUnits = ['Pcs', 'Kg', 'Liters'];
       { success: true, data: newInquiry, message: "Inquiry sent successfully" },
       { status: 201 }
     );
-    } catch (error: any) {
+    } catch (error: unknown) {
     console.error("Inquiry API Error:", error);
+    const message = error instanceof Error ? error.message : "Server Error";
     return NextResponse.json(
-      { success: false, message: "Server Error", error: error.message },
+      { success: false, message: "Server Error", error: message },
       { status: 500 }
     );
   }

@@ -49,12 +49,12 @@ export default function Header() {
 
                 <div className="hidden md:flex gap-5 lg:gap-7 text-gray-500 shrink-0">
                     {[
-                        { label: 'Profile', icon: <img src="/profile.svg" /> },
+                        { label: 'Profile', icon: <img src="/profile.svg" alt="Profile" /> },
                         {
-                            label: 'Message', icon: <img src="/Vector.svg" />
+                            label: 'Message', icon: <img src="/Vector.svg" alt="Message" />
                         },
-                        { label: 'Orders', icon: <img src="/heart.svg" className="mb-1" /> },
-                        { label: 'My cart', icon: <img src="/bucket.svg" />, count: 3 },
+                        { label: 'Orders', icon: <img src="/heart.svg" className="mb-1" alt="Orders" /> },
+                        { label: 'My cart', icon: <img src="/bucket.svg" alt="Cart" />, count: 3 },
                     ].map((item) => (
                         <div key={item.label} className="flex flex-col items-center cursor-pointer hover:text-blue-600 transition-colors">
                             <div className="relative text-xl">

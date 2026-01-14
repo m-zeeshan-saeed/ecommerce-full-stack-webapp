@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Dashboard() {
-    const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+    // const [user, setUser] = useState<{ name: string; email: string } | null>(null); // Removed as unused
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
@@ -17,7 +17,7 @@ export default function Dashboard() {
                 // We can add an endpoint to get current user info if needed
                 // But for now, let's just show a premium UI
                 setLoading(false);
-            } catch (error) {
+            } catch {
                 router.push("/login");
             }
         };
@@ -29,8 +29,8 @@ export default function Dashboard() {
             await fetch("/api/auth/logout", { method: "POST" });
             router.push("/login");
             router.refresh();
-        } catch (error) {
-            console.error("Logout failed", error);
+        } catch (_error) {
+            console.error("Logout failed", _error);
         }
     };
 
@@ -57,10 +57,10 @@ export default function Dashboard() {
             </nav>
 
             {/* Main Content */}
-            <main className="flex-grow p-6 md:p-12 max-w-7xl mx-auto w-full">
+            <main className="grow p-6 md:p-12 max-w-7xl mx-auto w-full">
                 <header className="mb-8">
                     <h1 className="text-3xl font-extrabold text-gray-900">Welcome back!</h1>
-                    <p className="text-gray-600">Here's what's happening with your account today.</p>
+                    <p className="text-gray-600">{"Here's"} what{"'s"} happening with your account today.</p>
                 </header>
 
                 {/* Info Cards */}
