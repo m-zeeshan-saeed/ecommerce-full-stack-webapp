@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 // import { signIn } from "next-auth/react"; // Removed as unused
@@ -45,7 +46,8 @@ export default function SignUpForm() {
                 <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
                     <Link href="/">
                         <div className="flex items-center justify-center">
-                            <img src="logo-symbol.svg"
+                            <Image src="/logo-symbol.svg"
+                                width={64} height={64}
                                 className="w-16 mr-2" alt="Logo" />
                             <span className="text-4xl xl:text-5xl font-extrabold text-blue-600 opacity-55">Brand</span>
                         </div>

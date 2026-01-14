@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 interface StatItem {
     label: string;
@@ -99,7 +100,7 @@ export default function AdminDashboard() {
             <nav className="bg-gray-800 border-b border-gray-700 px-6 py-4 flex justify-between items-center sticky top-0 z-10">
                 <div className="flex items-center gap-4">
                     <Link href="/" className="flex items-center">
-                        <img src="/logo-symbol.svg" className="w-10 mr-2" alt="Logo" />
+                        <Image src="/logo-symbol.svg" width={40} height={40} className="w-10 mr-2" alt="Logo" />
                         <span className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500">
                             Admin Panel
                         </span>

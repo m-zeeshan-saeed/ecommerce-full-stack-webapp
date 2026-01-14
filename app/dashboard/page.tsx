@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Dashboard() {
     // const [user, setUser] = useState<{ name: string; email: string } | null>(null); // Removed as unused
@@ -45,7 +46,7 @@ export default function Dashboard() {
             {/* Navbar */}
             <nav className="bg-white shadow-sm px-6 py-4 flex justify-between items-center">
                 <Link href="/" className="flex items-center">
-                    <img src="/logo-symbol.svg" className="w-10 mr-2" alt="Logo" />
+                    <Image src="/logo-symbol.svg" width={40} height={40} className="w-10 mr-2" alt="Logo" />
                     <span className="text-2xl font-bold text-blue-600">Brand</span>
                 </Link>
                 <button

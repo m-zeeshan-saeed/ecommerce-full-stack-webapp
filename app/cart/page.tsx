@@ -52,12 +52,12 @@ export default function CartPage() {
 
                     <div className="hidden md:flex gap-5 lg:gap-7 text-gray-500 shrink-0 items-center justify-end">
                         {[
-                            { label: 'Profile', icon: <img src="/profile.svg" alt="Profile" /> },
+                            { label: 'Profile', icon: <Image src="/profile.svg" alt="Profile" width={20} height={20} /> },
                             {
-                                label: 'Message', icon: <img src="/Vector.svg" alt="Message" />
+                                label: 'Message', icon: <Image src="/Vector.svg" alt="Message" width={20} height={20} />
                             },
-                            { label: 'Orders', icon: <img src="/heart.svg" className="mb-1" alt="Orders" /> },
-                            { label: 'My cart', icon: <img src="/bucket.svg" alt="Cart" />, count: 3 },
+                            { label: 'Orders', icon: <Image src="/heart.svg" className="mb-1" alt="Orders" width={20} height={20} /> },
+                            { label: 'My cart', icon: <Image src="/bucket.svg" alt="Cart" width={20} height={20} />, count: 3 },
                         ].map((item) => (
                             <div key={item.label} className="flex flex-col items-center cursor-pointer hover:text-blue-600 transition-colors">
                                 <div className="relative text-xl">

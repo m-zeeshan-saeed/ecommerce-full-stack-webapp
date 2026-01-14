@@ -65,7 +65,6 @@ export default function MenuBar() {
                                             setLanguage(selectedLang);
                                         }
                                     }}
-                                    placeholder="Select Country"
                                 />
                             </div>
                         </span>

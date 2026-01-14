@@ -5,11 +5,10 @@ import { countries } from "../../constants/data"
 
 interface CountrySelectProps {
     onChange: (country: { id: string, name: string, code: string, flag: string }) => void;
-    placeholder?: string;
     className?: string;
 }
 
-export default function CountrySelect({ onChange, placeholder, className }: CountrySelectProps) {
+export default function CountrySelect({ onChange, className }: CountrySelectProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState(countries[0]); // Default to first country
     const [searchTerm, setSearchTerm] = useState("");
