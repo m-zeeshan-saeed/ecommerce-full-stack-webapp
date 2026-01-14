@@ -1,0 +1,38 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run lint
+      run: npm run lint
+
+    - name: Run build
+      run: npm run build
+      env:
+        MONGO_URL: ${{ secrets.MONGO_URL || 'mongodb://localhost:27017/test' }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET || 'test_secret' }}
+        NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'test_secret' }}
+        NEXTAUTH_URL: http://localhost:3000
