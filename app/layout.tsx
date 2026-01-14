@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { WishlistProvider } from "@/contexts/WishlistContext";
+import { CartProvider } from "@/contexts/CartContext";
 
 export default function RootLayout({
   children,
@@ -33,7 +34,9 @@ export default function RootLayout({
       >
         <AuthProvider>
           <WishlistProvider>
-            {children}
+            <CartProvider>
+              {children}
+            </CartProvider>
           </WishlistProvider>
         </AuthProvider>
       </body>

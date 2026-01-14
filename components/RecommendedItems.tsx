@@ -1,5 +1,6 @@
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Product {
     id: number;
@@ -30,28 +31,29 @@ export default function RecommendedItems() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-5">
                 {products.map((product) => (
-                    <div
-                        key={product.id}
-                        className="group bg-white border border-gray-200 rounded-md p-3 md:p-4 flex flex-col transition-all duration-300 hover:shadow-md hover:border-blue-400 cursor-pointer"
-                    >
-                        <div className="relative w-full aspect-square mb-3 overflow-hidden rounded-sm flex items-center justify-center">
-                            <Image
-                                src={product.img}
-                                alt={product.name}
-                                fill
-                                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
-                                className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
-                            />
+                    <Link key={product.id} href={`/products/${product.id}`} className="contents">
+                        <div
+                            className="group bg-white border border-gray-200 rounded-md p-3 md:p-4 flex flex-col transition-all duration-300 hover:shadow-md hover:border-blue-400 cursor-pointer"
+                        >
+                            <div className="relative w-full aspect-square mb-3 overflow-hidden rounded-sm flex items-center justify-center">
+                                <Image
+                                    src={product.img}
+                                    alt={product.name}
+                                    fill
+                                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+                                    className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                                />
+                            </div>
+                            <div className="flex flex-col gap-1.5">
+                                <p className="font-semibold text-gray-900 text-base md:text-lg">
+                                    {product.price}
+                                </p>
+                                <p className="text-gray-400 text-sm leading-tight line-clamp-2 font-normal">
+                                    {product.desc}
+                                </p>
+                            </div>
                         </div>
-                        <div className="flex flex-col gap-1.5">
-                            <p className="font-semibold text-gray-900 text-base md:text-lg">
-                                {product.price}
-                            </p>
-                            <p className="text-gray-400 text-sm leading-tight line-clamp-2 font-normal">
-                                {product.desc}
-                            </p>
-                        </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

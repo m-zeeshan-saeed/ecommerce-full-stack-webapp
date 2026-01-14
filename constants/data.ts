@@ -29,39 +29,39 @@ export const headerData = [
 
 export const categories=[{
     category:"Automobiles",
-    href:"/automobiles",
+    href:"/category/automobiles",
 },
 {
     category:"Clothes and wear",
-    href:"/clothes-and-wear",
+    href:"/category/clothes-and-wear",
 },
 {
     category:"Home interiors",
-    href:"/home-interiors",
+    href:"/category/home-interiors",
 },
 {
     category:"Computer and tech",
-    href:"/computer-and-tech",
+    href:"/category/computer-and-tech",
 },
 {
     category:"Tools, equipments",
-    href:"/tools-equipments",
+    href:"/category/tools-equipments",
 },
 {
     category:"Sports and outdoor",
-    href:"/sports-outdoor",
+    href:"/category/sports-outdoor",
 },
 {
     category:"Animal and pets",
-    href:"/animal-pets",
+    href:"/category/animal-pets",
 },
 {
     category:"Machinery tools",
-    href:"/machinery-tools",
+    href:"/category/machinery-tools",
 },
 {
     category:"More category",
-    href:"/more-category",
+    href:"/category/more-category",
 }
 ]
 

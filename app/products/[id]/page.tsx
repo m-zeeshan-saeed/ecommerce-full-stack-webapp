@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { useCart } from "@/contexts/CartContext";
 import Link from "next/link";
 import Header from '@/components/Header';
 import MenuBar from '@/components/MenuBar';
@@ -23,10 +24,12 @@ export default function ProductDetailPage() {
     const params = useParams();
     const productId = parseInt(params.id as string);
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+    const { addToCart } = useCart();
 
     const [quantity, setQuantity] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0);
     const [activeTab, setActiveTab] = useState(0);
+    const [addedToCart, setAddedToCart] = useState(false);
 
     // Find product by ID
     const product = mockProducts.find(p => p.id === productId);
@@ -53,6 +56,21 @@ export default function ProductDetailPage() {
             removeFromWishlist(productId);
         } else {
             addToWishlist(product);
+        }
+    };
+
+    const handleAddToCart = () => {
+        if (product) {
+            addToCart({
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                image: product.image,
+                quantity: quantity,
+                seller: product.seller
+            });
+            setAddedToCart(true);
+            setTimeout(() => setAddedToCart(false), 3000);
         }
     };
 
@@ -90,7 +108,7 @@ export default function ProductDetailPage() {
                     <div className="bg-white border border-gray-200 rounded-lg p-4 lg:p-6 mb-5">
                         <div className="flex flex-col lg:flex-row gap-6">
                             {/* Product Gallery */}
-                            <div className="flex-shrink-0 w-full lg:w-[400px]">
+                            <div className="shrink-0 w-full lg:w-[400px]">
                                 <div className="relative aspect-square bg-gray-50 rounded-lg mb-3 overflow-hidden border border-gray-200">
                                     <Image
                                         src={productImages[selectedImage]}
@@ -152,14 +170,14 @@ export default function ProductDetailPage() {
                                     <div className="flex items-center gap-3">
                                         <button
                                             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                            className="w-9 h-9 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-50 transition-colors"
+                                            className="w-9 h-9 border text-gray-900 border-gray-500 rounded flex items-center justify-center hover:bg-gray-200 transition-colors"
                                         >
                                             -
                                         </button>
-                                        <span className="w-12 text-center font-semibold">{quantity}</span>
+                                        <span className="w-12 text-center font-semibold text-gray-900">{quantity}</span>
                                         <button
                                             onClick={() => setQuantity(quantity + 1)}
-                                            className="w-9 h-9 border border-gray-300 rounded flex items-center justify-center hover:bg-gray-50 transition-colors"
+                                            className="w-9 h-9 border text-gray-900 border-gray-500 rounded flex items-center justify-center hover:bg-gray-200 transition-colors"
                                         >
                                             +
                                         </button>
@@ -168,8 +186,16 @@ export default function ProductDetailPage() {
 
                                 {/* Actions */}
                                 <div className="flex gap-3 mb-4">
-                                    <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition-colors text-sm">
-                                        Add to Cart
+                                    <button
+                                        onClick={handleAddToCart}
+                                        disabled={addedToCart}
+                                        className={`flex-1 font-semibold py-2.5 rounded-lg transition-colors text-sm ${
+                                            addedToCart
+                                                ? "bg-green-600 hover:bg-green-700 text-white"
+                                                : "bg-blue-600 hover:bg-blue-700 text-white"
+                                        }`}
+                                    >
+                                        {addedToCart ? "Added to Cart!" : "Add to Cart"}
                                     </button>
                                     <button
                                         onClick={handleWishlistClick}

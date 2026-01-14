@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useCart } from '@/contexts/CartContext';
 
 interface CartItemType {
     id: number;
@@ -42,43 +43,40 @@ const initialSavedItems: SavedItemType[] = [
 ];
 
 export default function CartPage() {
-    const [cartItems, setCartItems] = useState<CartItemType[]>(initialCartItems);
+    const { cartItems, addToCart, removeFromCart, updateQuantity, clearCart, cartTotal } = useCart();
     const [savedItems, setSavedItems] = useState<SavedItemType[]>(initialSavedItems);
     const [paymentMethod, setPaymentMethod] = useState('card');
     const [isCheckedOut, setIsCheckedOut] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
 
     // Handler functions
-    const handleRemoveItem = (id: number) => {
-        setCartItems(cartItems.filter(item => item.id !== id));
+    const handleRemoveItem = (id: number | string) => {
+        removeFromCart(id);
     };
 
-    const handleSaveForLater = (id: number) => {
+    const handleSaveForLater = (id: number | string) => {
         const itemToSave = cartItems.find(item => item.id === id);
         if (itemToSave) {
             const savedItem: SavedItemType = {
-                id: itemToSave.id,
+                id: Number(itemToSave.id),
                 title: itemToSave.title,
                 price: itemToSave.price,
                 image: itemToSave.image
             };
             setSavedItems([...savedItems, savedItem]);
-            setCartItems(cartItems.filter(item => item.id !== id));
+            removeFromCart(id);
         }
     };
 
-    const handleQuantityChange = (id: number, quantity: number) => {
-        setCartItems(cartItems.map(item =>
-            item.id === id ? { ...item, quantity } : item
-        ));
+    const handleQuantityChange = (id: number | string, quantity: number) => {
+        updateQuantity(id, quantity);
     };
 
-    const handleMoveToCart = (id: number) => {
+    const handleMoveToCart = (id: number | string) => {
         const itemToMove = savedItems.find(item => item.id === id);
         if (itemToMove) {
-            const cartItem: CartItemType = {
+            addToCart({
                 id: itemToMove.id,
-                _id: `65a2f5e8d9b3a1a2b3c4d5e${itemToMove.id}`,
                 title: itemToMove.title,
                 size: "Medium",
                 color: "Blue",
@@ -86,19 +84,24 @@ export default function CartPage() {
                 price: itemToMove.price,
                 image: itemToMove.image,
                 quantity: 1
-            };
-            setCartItems([...cartItems, cartItem]);
+            });
             setSavedItems(savedItems.filter(item => item.id !== id));
         }
     };
 
-    const handleRemoveSavedItem = (id: number) => {
+    // Correcting the above: addToCart needs to be destructured at top
+    // Retrying the whole block in next tool call logic, but here I will fix it inline
+
+    // ... logic continues below in actual implementation ...
+    // I will replace the block with the correct implementation.
+
+    const handleRemoveSavedItem = (id: number | string) => {
         setSavedItems(savedItems.filter(item => item.id !== id));
     };
 
     const handleRemoveAll = () => {
         if (window.confirm('Are you sure you want to remove all items from cart?')) {
-            setCartItems([]);
+            clearCart();
         }
     };
 
@@ -110,9 +113,9 @@ export default function CartPage() {
 
         setIsProcessing(true);
         try {
-            const totalAmount = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            // Using context's cartTotal
             const items = cartItems.map(item => ({
-                product: item._id,
+                product: item.id, // Using id as product reference
                 quantity: item.quantity,
                 price: item.price
             }));
@@ -124,16 +127,17 @@ export default function CartPage() {
                 },
                 body: JSON.stringify({
                     items,
-                    totalAmount,
+                    totalAmount: cartTotal,
                     paymentMethod
                 }),
             });
 
             if (response.ok) {
                 setIsCheckedOut(true);
+                clearCart();
             } else {
                 const data = await response.json();
-                alert(data.message || "Failed to place order. Please login first.");
+                alert(data.message || "Failed to place order (Mock API might be missing user session).");
             }
         } catch (error) {
             console.error("Checkout error:", error);
@@ -267,7 +271,7 @@ export default function CartPage() {
                             <OrderSummary
                                 onCheckout={handleCheckout}
                                 isProcessing={isProcessing}
-                                subtotal={cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)}
+                                subtotal={cartTotal}
                                 itemCount={cartItems.length}
                             />
                         </div>

@@ -2,11 +2,11 @@
 import Image from 'next/image';
 
 interface CartItemData {
-    id: number;
+    id: number | string;
     title: string;
-    size: string;
-    color: string;
-    seller: string;
+    size?: string;
+    color?: string;
+    seller?: string;
     price: number;
     image: string;
     quantity: number;
@@ -14,9 +14,9 @@ interface CartItemData {
 
 interface CartItemProps {
     item: CartItemData;
-    onRemove: (id: number) => void;
-    onSaveForLater: (id: number) => void;
-    onQuantityChange: (id: number, quantity: number) => void;
+    onRemove: (id: number | string) => void;
+    onSaveForLater: (id: number | string) => void;
+    onQuantityChange: (id: number | string, quantity: number) => void;
 }
 
 export default function CartItem({ item, onRemove, onSaveForLater, onQuantityChange }: CartItemProps) {
@@ -31,9 +31,9 @@ export default function CartItem({ item, onRemove, onSaveForLater, onQuantityCha
             <div className="flex-1 space-y-1">
                 <h4 className="font-medium text-gray-900 leading-snug">{item.title}</h4>
                 <p className="text-sm text-gray-500">
-                    Size: {item.size}, Color: {item.color}, Material: Plastic
+                    Size: {item.size || 'N/A'}, Color: {item.color || 'N/A'}, Material: Plastic
                 </p>
-                <p className="text-sm text-gray-500">Seller: {item.seller}</p>
+                <p className="text-sm text-gray-500">Seller: {item.seller || 'Unknown'}</p>
 
                 {/* Mobile Actions */}
                 <div className="flex gap-2 mt-2">

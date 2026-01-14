@@ -4,10 +4,36 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { useCart } from "@/contexts/CartContext";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { categories } from "@/constants/data";
 
 export default function Header() {
     const { data: session } = useSession();
     const { wishlistCount } = useWishlist();
+    const { cartCount } = useCart();
+    const router = useRouter();
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("All category");
+
+    const handleSearch = () => {
+        const params = new URLSearchParams();
+        if (searchQuery.trim()) {
+            params.set("search", searchQuery.trim());
+        }
+        if (selectedCategory && selectedCategory !== "All category") {
+            params.set("category", selectedCategory);
+        }
+        router.push(`/products?${params.toString()}`);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
 
     const navigationItems = [
         {
@@ -29,7 +55,7 @@ export default function Header() {
         {
             label: 'My cart',
             icon: <Image src="/bucket.svg" alt="Cart" width={20} height={20} />,
-            count: 3,
+            count: cartCount,
             href: '/cart'
         },
     ];
@@ -52,7 +78,9 @@ export default function Header() {
                     <div className="flex md:hidden gap-5 text-gray-500">
                         <div className="flex flex-col items-center"></div>
                         <div className="flex flex-col items-center relative">
-                            <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">3</div>
+                            {cartCount > 0 && (
+                                <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">{cartCount}</div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -63,15 +91,28 @@ export default function Header() {
                         <input
                             className="flex-1 border-2 border-[#0d6efd] rounded-l-md px-4 py-2 text-sm text-gray-600 focus:outline-none"
                             placeholder="Search"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={handleKeyDown}
                         />
                         <div className="hidden lg:block border-y-2 border-[#0d6efd] px-3 bg-white">
-                            <select className="h-full text-sm text-black bg-transparent border-none focus:outline-none cursor-pointer">
+                            <select
+                                className="h-full text-sm text-black bg-transparent border-none focus:outline-none cursor-pointer"
+                                value={selectedCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                            >
                                 <option>All category</option>
-                                <option>Electronics</option>
-                                <option>Clothes</option>
+                                {categories.map((cat) => (
+                                    <option key={cat.category} value={cat.category}>
+                                        {cat.category}
+                                    </option>
+                                ))}
                             </select>
                         </div>
-                        <button className="bg-[#0d6efd] hover:bg-blue-700 transition-colors text-white px-6 rounded-r-md text-sm font-medium">
+                        <button
+                            onClick={handleSearch}
+                            className="bg-[#0d6efd] hover:bg-blue-700 transition-colors text-white px-6 rounded-r-md text-sm font-medium"
+                        >
                             Search
                         </button>
                     </div>
@@ -84,7 +125,7 @@ export default function Header() {
                             <div className="flex flex-col items-center cursor-pointer hover:text-blue-600 transition-colors group">
                                 <div className="relative text-xl">
                                     {item.icon}
-                                    {item.count && (
+                                    {item.count !== undefined && item.count > 0 && (
                                         <div className="absolute -top-1 -right-2 bg-blue-600 text-white text-[10px] px-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center">
                                             {item.count}
                                         </div>
