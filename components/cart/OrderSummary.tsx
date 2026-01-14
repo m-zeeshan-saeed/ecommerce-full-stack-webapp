@@ -7,7 +7,7 @@ interface OrderSummaryProps {
     itemCount: number;
 }
 
-export default function OrderSummary({ onCheckout, isProcessing, subtotal, itemCount }: OrderSummaryProps) {
+export default function OrderSummary({ onCheckout, isProcessing, subtotal, }: OrderSummaryProps) {
     return (
         <div className="bg-white border border-gray-200 rounded-lg p-5 h-fit shadow-sm">
             {/* Coupon */}
