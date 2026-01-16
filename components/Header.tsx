@@ -88,7 +88,7 @@ export default function Header() {
                                 <span className="p-1.5 bg-[#0d6efd] rounded-lg mr-2">
                                     <Image src="/logo-symbol.svg" alt="" width={30} height={30} className="w-7 h-7 "  />
                                 </span>
-                                <span className="text-[#8CB7F5] font-bold text-2xl">Brand</span>
+                                <span className="text-[#8CB7F5] font-bold text-2xl hidden sm:block">Brand</span>
                             </div>
                         </Link>
                     </div>
