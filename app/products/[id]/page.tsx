@@ -96,7 +96,7 @@ export default function ProductDetailPage() {
             <Header />
             <MenuBar />
             <div className="bg-[#F7F8FA] min-h-screen pb-10">
-                <main className="w-full mx-auto px-22 py-4">
+                <main className="container mx-auto px-4 md:px-6 lg:px-20 py-4">
                     {/* Breadcrumbs */}
                     <div className="flex items-center gap-2 text-sm text-gray-500 mb-5 overflow-x-auto whitespace-nowrap">
                         <Link href="/" className="hover:text-blue-600">Home</Link> <span className="text-gray-400">›</span>

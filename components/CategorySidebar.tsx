@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function CategorySidebar() {
     return (
-        <div className="w-full">
+        <div className="w-full hidden lg:block">
             <ul className="flex lg:flex-col flex-row gap-1 lg:gap-0 overflow-x-auto no-scrollbar py-2 lg:py-0">
                 {categories.map((items) => (
                     <li

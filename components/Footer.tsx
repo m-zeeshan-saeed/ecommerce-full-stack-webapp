@@ -3,9 +3,9 @@ import Image from "next/image";
 
 export default function Footer() {
     return (
-        <div className="bg-white border-t border-gray-200 px-7 w-full mx-auto space-y-12">
+        <div className="bg-white border-t border-gray-200 w-full mx-auto space-y-8 md:space-y-12 pb-8">
 
-            <div className="w-full mx-auto px-12 md:px-6 py-5 flex  justify-between flex-col gap-y-4 md:flex-row md:items-center md:gap-x-6">
+            <div className="container mx-auto px-6 md:px-12 py-8 md:py-5 flex flex-col md:flex-row justify-between gap-y-10 md:gap-x-6">
 
 
                 <div className="flex-1 min-w-[220px] md:max-w-[320px] mr-10">

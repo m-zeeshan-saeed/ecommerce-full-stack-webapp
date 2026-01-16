@@ -159,8 +159,8 @@ export default function CartPage() {
 
     return (
         <>
-            <div className="bg-white border-b border-gray-200 px-15">
-                <div className="w-full mx-auto px-4 md:px-6 py-3 flex justify-between flex-col gap-y-4 md:flex-row md:items-center md:gap-x-6">
+            <div className="bg-white border-b border-gray-200">
+                <div className="container mx-auto px-4 md:px-6 py-3 flex justify-between flex-col gap-y-4 md:flex-row md:items-center md:gap-x-6">
                     <div className="flex items-center justify-start w-full md:w-auto">
                         <Link href="/">
                             <div className="flex items-center text-[#0d6efd] font-bold text-2xl tracking-tight cursor-pointer">
@@ -202,7 +202,7 @@ export default function CartPage() {
             </div>
 
             <div className="bg-[#F7F8FA] min-h-screen font-sans">
-                <main className="w-full mx-auto px-24 py-8">
+                <main className="container mx-auto px-4 md:px-6 lg:px-20 py-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">My cart ({cartItems.length})</h2>
 
                     <div className="flex flex-col lg:flex-row gap-6 mb-8">

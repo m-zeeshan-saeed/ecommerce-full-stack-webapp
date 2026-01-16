@@ -115,6 +115,7 @@ function ProductListingContent() {
 
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [selectedRatings, setSelectedRatings] = useState<number[]>([]);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     const handleRatingChange = (rating: number) => {
         setSelectedRatings(prev =>
@@ -138,23 +139,6 @@ function ProductListingContent() {
             if (!matchesSearch) return false;
         }
 
-        // Filter by category (mock data doesn't have category field yet, so we'll simulate or skip if undefined)
-        // Note: The mock data in this file doesn't actually have a 'category' field.
-        // For demonstration, we'll assume it passes if no category field exists,
-        // OR we should ideally add category to mock data.
-        // Given the instructions, I will add a lenient check or skip it if data is missing.
-        // But to make it work 'globally', I'll assume standard matching if properties existed.
-        // Since they don't, I will strictly filter ONLY if the property exists, else I might filter out everything.
-        // Actually, let's just match on title for now as a fallback for 'category' if the field is missing.
-        // BETTER APPROACH: I will just check against title/desc for search.
-        // For category: The mock data objects in THIS file (lines 14-105) DO NOT have a category field.
-        // I will add a comment about this limitation or try to match 'category' in title/desc too?
-        // No, that's messy. I will stick to search query filtering for now as it's the main request.
-        // Wait, the plan said "Update filteredProducts logic... to check for category".
-        // Use the 'category' param to filter if possible.
-        // Since mock data lacks it, I will ignore category filter for this file's specific mock data
-        // OR I should assume the user might add real data later.
-
         return true;
     });
 
@@ -164,11 +148,11 @@ function ProductListingContent() {
         <>
             <Header />
             <MenuBar />
-            <div className="bg-[#f7f8fa] min-h-screen w-full px-16">
+            <div className="bg-[#f7f8fa] min-h-screen w-full"> {/* Removed fixed padding here */}
 
 
 
-                <main className="w-full  mx-auto px-4 md:px-6 py-6">
+                <main className="container mx-auto px-4 md:px-6 py-6">
 
 
                     <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
@@ -195,41 +179,72 @@ function ProductListingContent() {
 
                             {/* Top Filter Bar */}
                             <div className="bg-white border border-gray-200 rounded-lg p-3 mb-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-                                <div className="text-gray-900 text-sm">
-                                    {filteredProducts.length} items found
+                                <div className="text-gray-900 text-sm flex items-center justify-between w-full sm:w-auto">
+                                    <span>{filteredProducts.length} items found</span>
+
+                                    {/* Mobile Filter Button */}
+                                    <button
+                                        className="lg:hidden flex items-center gap-2 text-blue-600 font-medium text-sm sm:hidden"
+                                        onClick={() => setIsFilterOpen(true)}
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <line x1="4" y1="21" x2="4" y2="14"></line>
+                                            <line x1="4" y1="10" x2="4" y2="3"></line>
+                                            <line x1="12" y1="21" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12" y2="3"></line>
+                                            <line x1="20" y1="21" x2="20" y2="16"></line>
+                                            <line x1="20" y1="12" x2="20" y2="3"></line>
+                                            <line x1="1" y1="14" x2="7" y2="14"></line>
+                                            <line x1="9" y1="8" x2="15" y2="8"></line>
+                                            <line x1="17" y1="16" x2="23" y2="16"></line>
+                                        </svg>
+                                        Filter
+                                    </button>
                                 </div>
 
-                                <div className="flex items-center gap-3">
-                                    <div className="flex items-center gap-2 text-sm">
+                                <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                                    <div className="flex items-center gap-2 text-sm hidden sm:flex">
                                         <input type="checkbox" className="rounded border-gray-300 text-blue-600" />
                                         <span className="text-gray-900">Verified only</span>
                                     </div>
 
-                                    <div className="relative">
-                                        <select className="border border-gray-300 rounded px-3 py-1.5 text-sm bg-white focus:outline-none text-gray-900 focus:border-blue-500">
-                                            <option>Featured</option>
-                                            <option>Price: Low to High</option>
-                                            <option>Newest</option>
-                                        </select>
-                                    </div>
+                                    <div className="flex gap-3">
+                                        <div className="relative">
+                                            <select className="border border-gray-300 rounded px-3 py-1.5 text-sm bg-white focus:outline-none text-gray-900 focus:border-blue-500">
+                                                <option>Featured</option>
+                                                <option>Price: Low to High</option>
+                                                <option>Newest</option>
+                                            </select>
+                                        </div>
 
-                                    {/* View Toggle Icons */}
-                                    <div className="flex border border-gray-300 rounded overflow-hidden">
-                                        <button
-                                            onClick={() => setViewMode('grid')}
-                                            className={`p-2 border-r border-gray-300 transition-colors ${viewMode === 'grid' ? 'bg-gray-200 text-gray-900' : 'bg-white text-gray-400 hover:bg-gray-50'}`}
+                                        {/* View Toggle Icons */}
+                                        <div className="flex border border-gray-300 rounded overflow-hidden">
+                                            <button
+                                                onClick={() => setViewMode('grid')}
+                                                className={`p-2 border-r border-gray-300 transition-colors ${viewMode === 'grid' ? 'bg-gray-200 text-gray-900' : 'bg-white text-gray-400 hover:bg-gray-50'}`}
+                                            >
+                                                <svg className="w-[18px] h-[18px] text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path fillRule="evenodd" d="M4.857 3A1.857 1.857 0 0 0 3 4.857v4.286C3 10.169 3.831 11 4.857 11h4.286A1.857 1.857 0 0 0 11 9.143V4.857A1.857 1.857 0 0 0 9.143 3H4.857Zm10 0A1.857 1.857 0 0 0 13 4.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 21 9.143V4.857A1.857 1.857 0 0 0 19.143 3h-4.286Zm-10 10A1.857 1.857 0 0 0 3 14.857v4.286C3 20.169 3.831 21 4.857 21h4.286A1.857 1.857 0 0 0 11 19.143v-4.286A1.857 1.857 0 0 0 9.143 13H4.857Zm10 0A1.857 1.857 0 0 0 13 14.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 21 19.143v-4.286A1.857 1.857 0 0 0 19.143 13h-4.286Z" clipRule="evenodd" />
+                                                </svg>
+
+
+                                            </button>
+                                            <button
+                                                onClick={() => setViewMode('list')}
+                                                className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-gray-200 text-gray-900' : 'bg-white text-gray-400 hover:bg-gray-50'}`}
+                                            >
+                                                <svg className="w-[18px] h-[18px] text-gray-800 dark:text-black" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4h12v2H4V4zm0 5h12v2H4V9zm0 5h12v2H4v-2z" /></svg>
+                                            </button>
+                                        </div>
+                                         {/* Tablet Filter Button */}
+                                         <button
+                                            className="hidden sm:flex lg:hidden items-center p-2 border border-gray-300 rounded hover:bg-gray-50"
+                                            onClick={() => setIsFilterOpen(true)}
+                                            title="Filter"
                                         >
-                                            <svg className="w-[18px] h-[18px] text-gray-800 dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                                <path fillRule="evenodd" d="M4.857 3A1.857 1.857 0 0 0 3 4.857v4.286C3 10.169 3.831 11 4.857 11h4.286A1.857 1.857 0 0 0 11 9.143V4.857A1.857 1.857 0 0 0 9.143 3H4.857Zm10 0A1.857 1.857 0 0 0 13 4.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 21 9.143V4.857A1.857 1.857 0 0 0 19.143 3h-4.286Zm-10 10A1.857 1.857 0 0 0 3 14.857v4.286C3 20.169 3.831 21 4.857 21h4.286A1.857 1.857 0 0 0 11 19.143v-4.286A1.857 1.857 0 0 0 9.143 13H4.857Zm10 0A1.857 1.857 0 0 0 13 14.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 21 19.143v-4.286A1.857 1.857 0 0 0 19.143 13h-4.286Z" clipRule="evenodd" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+                                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                                             </svg>
-
-
-                                        </button>
-                                        <button
-                                            onClick={() => setViewMode('list')}
-                                            className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-gray-200 text-gray-900' : 'bg-white text-gray-400 hover:bg-gray-50'}`}
-                                        >
-                                            <svg className="w-[18px] h-[18px] text-gray-800 dark:text-black" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4h12v2H4V4zm0 5h12v2H4V9zm0 5h12v2H4v-2z" /></svg>
                                         </button>
                                     </div>
                                 </div>
@@ -294,6 +309,34 @@ function ProductListingContent() {
                 </main>
 
             </div>
+
+            {/* Mobile Filter Drawer Overlay */}
+            {isFilterOpen && (
+                <div className="fixed inset-0 z-[100] lg:hidden">
+                    <div className="absolute inset-0 bg-black/50" onClick={() => setIsFilterOpen(false)} />
+                    <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-[320px] bg-white p-5 overflow-y-auto shadow-xl transition-transform">
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="font-bold text-lg text-gray-900">Filters</h3>
+                            <button onClick={() => setIsFilterOpen(false)} className="text-gray-500 hover:text-gray-700">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                            </button>
+                        </div>
+                        <SidebarFilter
+                            selectedRatings={selectedRatings}
+                            onRatingChange={handleRatingChange}
+                        />
+                         <div className="mt-6 pt-4 border-t border-gray-200">
+                            <button
+                                onClick={() => setIsFilterOpen(false)}
+                                className="w-full bg-blue-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 transition"
+                            >
+                                Apply Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <Newsletter />
             <Footer />
         </>

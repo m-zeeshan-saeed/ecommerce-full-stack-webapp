@@ -21,7 +21,7 @@ export default function Home() {
 
 <Header />
 <MenuBar />
-      <div className="max-w-auto mx-auto px-20 py-6 flex flex-wrap gap-6 bg-[#f3f4f6] space-y-6">
+      <div className="w-full mx-auto px-4 md:px-8 lg:px-20 py-6 flex flex-wrap gap-6 bg-[#f3f4f6] space-y-6">
         <div className="flex-1 w-full flex lg:flex-row flex-col gap-3 bg-[#ffffff] border border-gray-300 p-5 rounded-[6px]">
           <div className="lg:w-[250px] min-w-[250px] md:w-full w-full">
             <CategorySidebar />

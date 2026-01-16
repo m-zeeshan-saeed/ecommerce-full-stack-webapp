@@ -10,7 +10,7 @@ export default function MenuBar() {
     // const [country, setCountry] = useState('0'); // Removed as unused
     const [language, setLanguage] = useState(languages[0]);
     return (
-        <div className="border-b border-gray-200 max-w-full mx-auto px-4 lg:px-20 flex flex-wrap gap-6 bg-white space-y-6">
+        <div className="hidden md:flex border-b border-gray-200 max-w-full mx-auto px-4 lg:px-20 flex-wrap gap-6 bg-white space-y-6">
             <div className="w-full mx-auto sm:px-6 lg:px-2 py-3 flex items-center justify-between text-sm text-gray-900">
 
                 <div className="flex items-center overflow-x-auto no-scrollbar whitespace-nowrap gap-2 md:gap-6">
